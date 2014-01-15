@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115101941) do
+ActiveRecord::Schema.define(version: 20140115112008) do
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20140115101941) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories", using: :btree
+
+  create_table "static_pages", force: true do |t|
+    t.string   "title_ge"
+    t.string   "title_en"
+    t.text     "content_ge"
+    t.text     "content_en"
+    t.boolean  "status",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

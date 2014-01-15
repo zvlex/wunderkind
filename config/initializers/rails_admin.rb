@@ -3,6 +3,34 @@
 
 RailsAdmin.config do |config|
 
+  config.model StaticPage do
+    list do
+      field :id
+      field :title_ge
+      field :title_en
+      field :status do
+        label "Active?"
+      end
+    end
+
+    show do
+      field :title_ge
+      field :title_en
+      field :content_ge, :ck_editor
+      field :content_en, :ck_editor
+      field :status do
+        label "Active?"
+      end
+    end
+
+    edit do
+      field :title_ge
+      field :title_en
+      field :content_ge, :ck_editor
+      field :content_en, :ck_editor
+    end
+  end
+
 
   ################  Global configuration  ################
 
