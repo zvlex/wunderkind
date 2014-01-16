@@ -4,11 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 gem 'rails_admin', '0.6.0'
 gem 'ckeditor', '4.0.8'
-
+gem 'nokogiri', '1.6.1'
+gem 'devise', '3.2.2'
+# Use mysql as the database for Active Record
+gem 'mysql2', '0.3.14'
 
 group  :development, :test do
-  # Use mysql as the database for Active Record
-  gem 'mysql2', '0.3.14'
   gem 'rspec-rails', '2.14.1'
 end
 
@@ -44,9 +45,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :production do
-  gem 'mysql2', '0.3.14'
-end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
@@ -61,4 +59,3 @@ end
 # gem 'debugger', group: [:development, :test]
 
 
-gem "devise"

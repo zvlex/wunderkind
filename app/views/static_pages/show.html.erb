@@ -1,9 +1,10 @@
-<article>
-  <header>
-    <h1><%= @static_pages["title_#{get_loc}"] %></h1>
-  </header>
-  <p>
-  <h1><%=raw @static_pages["content_#{get_loc}"] %></h1>
-  </p>
-</article>
+<% provide(:title, 'Wunderkind') %>
+<h1>Wunderkind</h1>
+<!--<h1><%# @static_pages["title_#{get_loc}"] %></h1>-->
+<p>
+  <%#raw @static_pages["content_#{get_loc}"] %>
+</p>
+
+
+
 
