@@ -1,23 +1,13 @@
 require 'spec_helper'
 
 describe 'Static Pages' do
-
-  let(:base_title) { 'Wunderkind.ge' }
+  subject { page }
 
   describe 'Wunderkind page' do
-    it "should have the content 'Wunderkind'" do
-      visit '/static_pages/1'
-      expect(page).to have_content('Wunderkind')
-    end
+    let(:static_page) { FactoryGirl.create(:static_page) }
+    before { visit static_page_path(static_page.id) }
 
-    it 'should have the base title' do
-      visit '/static_pages/1'
-      expect(page).to have_title(base_title)
-    end
-
-    it 'should not have a custom page title' do
-      visit '/static_pages/1'
-      expect(page).not_to have_title('| Wunderkind')
-    end
+    it { should have_content(static_page.content_en) }
+    it { should have_title(full_title('')) }
   end
 end

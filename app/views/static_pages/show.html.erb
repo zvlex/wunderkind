@@ -1,9 +1,6 @@
-<%# provide(:title, 'Wunderkind') %>
-<h1>Wunderkind</h1>
-<!--<h1><%# @static_pages["title_#{get_loc}"] %></h1>-->
-<p>
-  <%#raw @static_pages["content_#{get_loc}"] %>
-</p>
+<% provide(:title, @static_pages["title_#{get_loc}"]) %>
+<h1><%= @static_pages["title_#{get_loc}"] %></h1>
+<p><%=raw @static_pages["content_#{get_loc}"] %></p>
 
 
 
