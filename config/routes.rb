@@ -1,6 +1,10 @@
 Wunderkind::Application.routes.draw do
 
 
+  get "sub_categories/show"
+  get "sub_categories/index"
+  get "categories/show"
+  get "categories/index"
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

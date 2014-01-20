@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140115112008) do
+ActiveRecord::Schema.define(version: 20140120101828) do
+
+  create_table "categories", force: true do |t|
+    t.string   "title_ge"
+    t.string   "title_en"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -32,6 +39,14 @@ ActiveRecord::Schema.define(version: 20140115112008) do
     t.text     "content_ge"
     t.text     "content_en"
     t.boolean  "status",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sub_categories", force: true do |t|
+    t.string   "title_ge"
+    t.string   "title_en"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

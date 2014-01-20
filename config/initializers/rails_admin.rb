@@ -31,6 +31,21 @@ RailsAdmin.config do |config|
       end
     end
   end
+  config.model Category do
+    list do
+      field :title_ge
+      field :title_en
+    end
+
+    edit do
+      field :title_ge
+      field :title_en
+    end
+  end
+
+  config.model SubCategory do
+    config.label_methods << :title_ge
+  end
 
 
   ################  Global configuration  ################
