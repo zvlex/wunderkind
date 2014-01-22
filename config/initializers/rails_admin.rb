@@ -47,6 +47,14 @@ RailsAdmin.config do |config|
     config.label_methods << :title_ge
   end
 
+  config.model Brand do
+    list do
+      field :id
+      field :title_ge
+      field :title_en
+    end
+  end
+
 
   ################  Global configuration  ################
 
