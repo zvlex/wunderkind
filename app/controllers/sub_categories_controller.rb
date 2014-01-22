@@ -1,7 +1,10 @@
 class SubCategoriesController < ApplicationController
-  def show
+  def index
+    @sub_categories = SubCategory.all
   end
 
-  def index
+  def show
+    @sub_category = SubCategory.find(params[:id])
   end
+
 end

@@ -1,15 +1,12 @@
 Wunderkind::Application.routes.draw do
 
-
-  get "sub_categories/show"
-  get "sub_categories/index"
-  get "categories/show"
-  get "categories/index"
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   scope '(:locale)' do
     resources :static_pages
+    resources :categories
+    resources :sub_categories
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -7,4 +7,9 @@ module ApplicationHelper
       page_title
     end
   end
+
+  def get_loc
+    params[:locale] ||= 'ge'
+  end
+
 end

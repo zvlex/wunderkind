@@ -8,12 +8,11 @@
   <%= render 'layouts/shim' %>
 </head>
 <body class="<%= controller.controller_name %>">
-    <%= render 'layouts/header' %>
+    <%= render 'layouts/header', categories: menu_items %>
     <div class="container">
         <%= yield %>
       <%= render 'layouts/left_column' %>
       <%= render 'layouts/footer' %>
     </div>
-
 </body>
 </html>

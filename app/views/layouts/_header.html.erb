@@ -3,10 +3,16 @@
     <%= link_to 'Wunderkind Logo', '#', id: 'logo' %>
     <nav>
       <ul>
-        <li><%= link_to 'Home', '#' %></li>
-        <li><%= link_to 'Help', 'static_pages/1' %></li>
-        <li><%= link_to 'Sign in', '#' %></li>
+        <% categories[:cat].each do |cat| %>
+            <li><%= link_to cat["title_#{get_loc}"], category_path(cat.id) %></li>
+            <ul>
+              <% categories[:sub].where(category_id: cat.id).each do |sub| %>
+                  <li><%= link_to sub["title_#{get_loc}"], sub_category_path(sub.id) %></li>
+              <% end %>
+            </ul>
+        <% end %>
       </ul>
     </nav>
+
   </div>
 </header>

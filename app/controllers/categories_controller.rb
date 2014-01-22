@@ -1,7 +1,11 @@
 class CategoriesController < ApplicationController
-  def show
-  end
+  attr_accessor :categories
 
   def index
+    @categories = Category.all
+  end
+
+  def show
+    @category = Category.find_by_id(params[:id])
   end
 end

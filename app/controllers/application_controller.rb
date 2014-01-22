@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :set_i18n_locale_from_params
+  helper_method :menu_items
+
+
 
   protected
     def set_i18n_locale_from_params
@@ -19,4 +22,9 @@ class ApplicationController < ActionController::Base
     def default_url_options
       { locale: I18n.locale }
     end
+
+    def menu_items
+      { cat: @categories ||= Category.all, sub: @sub_categories ||= SubCategory.all }
+    end
+
 end
