@@ -54,6 +54,13 @@ RailsAdmin.config do |config|
       field :title_en
     end
   end
+  config.model Product do
+    config.label_methods << :prefix_ge
+    config.label_methods << :title_ge
+    config.label_methods << :category
+    config.label_methods << :sex_ge
+  end
+
 
 
   ################  Global configuration  ################

@@ -10,4 +10,8 @@ class Category < ActiveRecord::Base
     category.title_ge
   end
 
+  def category_fields
+    "#{self.title_ge}"
+  end
+
 end
