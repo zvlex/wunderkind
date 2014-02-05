@@ -1,0 +1,16 @@
+<% categories = Category.all %>
+<% sub_categories = SubCategory.all %>
+<% sub_cat = flight.sub_category_id %>
+
+<select data-enumeration="true"  name="product[sub_category_id]" id="product_sub_category_id">
+  <% categories.each do |cat| %>
+      <option disabled value="<%= cat.id %>"><%= cat["title_#{get_loc}"] %></option>
+      <% sub_categories.where(category_id: cat.id).each do |sub| %>
+           <% if sub_cat != sub.id %>
+            <option value="<%= sub.id %>"><%= "======" + sub["title_#{get_loc}"] + "\n" %></option>
+           <% else %>
+              <option selected="selected" value="<%= sub.id %>"><%= "======" + sub["title_#{get_loc}"] + "\n" %></option>
+           <% end %>
+      <% end %>
+  <% end %>
+</select>

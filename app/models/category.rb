@@ -4,10 +4,19 @@ class Category < ActiveRecord::Base
   validates :title_ge, presence: true
   validates :title_en, presence: true
 
+  rails_admin do
+    list do
+      field :id
+      field :title_ge
+      field :title_en
+      field :created_at
+      field :updated_at
+    end
 
-  def full_name(category_id)
-    category = Category.find(category_id)
-    category.title_ge
+    edit do
+      field :title_ge
+      field :title_en
+    end
   end
 
   def category_fields

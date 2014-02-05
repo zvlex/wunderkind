@@ -3,65 +3,62 @@
 
 RailsAdmin.config do |config|
 
-  config.model StaticPage do
-    list do
-      field :id
-      field :title_ge
-      field :title_en
-      field :status
-    end
-
-    show do
-      field :title_ge
-      field :title_en
-      field :content_ge, :ck_editor
-      field :content_en, :ck_editor
-      field :status do
-        label "Active?"
-      end
-    end
-
-    edit do
-      field :title_ge
-      field :title_en
-      field :content_ge, :ck_editor
-      field :content_en, :ck_editor
-      field :status do
-        label "Active?"
-      end
-    end
-  end
-  config.model Category do
-    list do
-      field :title_ge
-      field :title_en
-    end
-
-    edit do
-      field :title_ge
-      field :title_en
-    end
-  end
 
   config.model SubCategory do
     config.label_methods << :title_ge
   end
 
-  config.model Brand do
-    list do
-      field :id
+  config.model Product do
+      config.label_methods << :prefix_ge
+      config.label_methods << :title_ge
+      config.label_methods << :category
+      config.label_methods << :sex_ge
+
+    edit do
+      field :prefix
       field :title_ge
       field :title_en
+      field :description_ge, :ck_editor
+      field :description_en, :ck_editor
+      field :model
+      field :price
+      field :discount
+      field :brand
+      field :in_stock
+      field :quantity
+      field :sub_category_id do
+        render do
+          bindings[:view].render :partial => 'my_partial', :locals => { :flight => bindings[:object], :field => self }
+        end
+      end
+      configure :sex do
+        label "Sex"
+      end
+
+      #field :sex, :enum do
+      #  enum do
+      #    ["Free", "Basic", "Advanced", "Super Platinum"]
+      #  end
+      #end
+      #configure :sex do
+      #  partial "my_partial", :object => :category
+      #end
+      field :sex_id, :enum do
+        enum do
+          Sex.all.map { |c| [ c.sex_ge, c.id ] }
+        end
+      end
+      #
+      #field :sub_category_id, :enum do
+      #  enum do
+      #    partial "my_partial"
+      #  end
+      #end
+
+
+
     end
   end
-  config.model Product do
-    config.label_methods << :prefix_ge
-    config.label_methods << :title_ge
-    config.label_methods << :category
-    config.label_methods << :sex_ge
-  end
-
-
 
   ################  Global configuration  ################
 
