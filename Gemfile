@@ -8,6 +8,7 @@ gem 'nokogiri', '1.6.1'
 gem 'devise', '3.2.2'
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.14'
+gem 'paperclip', '~> 4.0.0'
 
 group  :development, :test do
   gem 'rspec-rails', '2.14.1'

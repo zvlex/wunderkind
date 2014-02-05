@@ -8,6 +8,11 @@ RailsAdmin.config do |config|
     config.label_methods << :title_ge
   end
 
+  #config.model Banner do
+  #  edit do
+  #  end
+  #end
+
   config.model Product do
       config.label_methods << :prefix_ge
       config.label_methods << :title_ge
