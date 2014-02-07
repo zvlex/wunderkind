@@ -18,6 +18,7 @@ RailsAdmin.config do |config|
       config.label_methods << :title_ge
       config.label_methods << :category
       config.label_methods << :sex_ge
+      config.label_methods << :product_img_file_name
 
     edit do
       field :prefix
@@ -53,14 +54,15 @@ RailsAdmin.config do |config|
           Sex.all.map { |c| [ c.sex_ge, c.id ] }
         end
       end
+
+      field :images
+
       #
       #field :sub_category_id, :enum do
       #  enum do
       #    partial "my_partial"
       #  end
       #end
-
-
 
     end
   end

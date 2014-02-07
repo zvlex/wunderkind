@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205130449) do
+ActiveRecord::Schema.define(version: 20140207123259) do
 
   create_table "banners", force: true do |t|
     t.string   "title"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20140205130449) do
     t.string   "title_en"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "images", force: true do |t|
+    t.integer  "product_id"
+    t.string   "product_img"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "product_img_file_name"
+    t.string   "product_img_content_type"
+    t.integer  "product_img_file_size"
+    t.datetime "product_img_updated_at"
   end
 
   create_table "prefixes", force: true do |t|
