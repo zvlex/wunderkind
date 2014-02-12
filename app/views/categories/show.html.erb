@@ -1,2 +1,16 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<header>
+  <h1><%= @category["title_#{get_loc}"] %></h1>
+</header>
+
+<% @subs.each do |sub| %>
+<article>
+  <h2><%= sub["title_#{get_loc}"]%></h2>
+  <%= image_tag sub.sub_img.url %>
+
+  <% @brands.each do |b| %>
+    <% if sub.id == b.sub_id %>
+        <p><%= link_to b["title_#{get_loc}"], '#' %> - <%= b.prod_quantity %></p>
+    <% end %>
+  <% end %>
+</article>
+<% end %>
