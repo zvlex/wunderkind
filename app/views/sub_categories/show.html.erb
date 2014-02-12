@@ -1,2 +1,9 @@
-<h1>SubCategories#show</h1>
-<p>Find me in app/views/sub_categories/show.html.erb</p>
+<div>
+  <div><% image_tag '#' %></div>
+   <% @prefixes.each do |prefix| %>
+    <div><%= prefix.prefix_ge %></div>
+    <% products_list(prefix.id).each do |list| %>
+        <div><%= link_to list["title_#{get_loc}"], product_path(list.id) %></div>
+    <% end %>
+   <% end %>
+</div>

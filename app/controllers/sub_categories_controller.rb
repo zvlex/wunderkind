@@ -4,7 +4,13 @@ class SubCategoriesController < ApplicationController
   end
 
   def show
-    @sub_category = SubCategory.find(params[:id])
+    #@products = Product
+    #  .joins('LEFT JOIN prefixes ON (products.prefix_id = prefixes.id)')
+    #  .where('sub_category_id = ?', params[:id])
+    #  .select('*')
+
+    @prefixes = Prefix.joins('INNER JOIN products ON (products.prefix_id = prefixes.id)').where('sub_category_id = ?', params[:id]).group('prefixes.id')
+
   end
 
 end
