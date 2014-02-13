@@ -1,9 +1,12 @@
 <div>
-  <div><% image_tag '#' %></div>
    <% @prefixes.each do |prefix| %>
-    <div><%= prefix.prefix_ge %></div>
-    <% products_list(prefix.id).each do |list| %>
+      <% products = product_list(prefix.id) %>
+        <div><%= link_to prefix.prefix_ge, products.first %></div>
+      <% products.each do |list| %>
         <div><%= link_to list["title_#{get_loc}"], product_path(list.id) %></div>
-    <% end %>
+          <% product_image(list.id).each do |pimg|  %>
+              <div><%= image_tag pimg.product_img  %></div>
+          <% end %>
+      <% end %>
    <% end %>
 </div>

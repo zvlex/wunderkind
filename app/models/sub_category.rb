@@ -13,4 +13,5 @@ class SubCategory < ActiveRecord::Base
   validates :category_id, presence: true
 
 
+
 end

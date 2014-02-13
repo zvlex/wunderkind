@@ -9,8 +9,9 @@ class SubCategoriesController < ApplicationController
     #  .where('sub_category_id = ?', params[:id])
     #  .select('*')
 
-    @prefixes = Prefix.joins('INNER JOIN products ON (products.prefix_id = prefixes.id)').where('sub_category_id = ?', params[:id]).group('prefixes.id')
-
+    @prefixes = Prefix.joins('LEFT JOIN products ON (products.prefix_id = prefixes.id)').where('sub_category_id = ?', params[:id]).group('prefixes.id')
+    #@image = Image.find_by_product_id()
   end
+
 
 end
