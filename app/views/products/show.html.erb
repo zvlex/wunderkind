@@ -1,1 +1,31 @@
-<%= @product.inspect %>
+<article>
+  <h1><%= @prefix["prefix_#{get_loc}"] %> - <%= @product["title_#{get_loc}"]%></h1>
+  <div>
+    <!-- image -->
+  </div>
+  <div>
+    <% prefix_product_list(@prefix.id, @product.sub_category_id, @product.id).each do |p| %>
+        <span>
+          <%= link_to p["title_#{get_loc}"], product_path(p.id) %></span>
+            &nbsp;
+            <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
+            <span>- <%= p.quantity %> +</span><br>
+    <% end %>
+  </div>
+  <div>
+    <button>Add to Cart</button>
+  </div>
+</article>
+<article>
+    <div><%=raw @product["description_#{get_loc}"] %></div>
+</article>
+<article>
+  <% related_product_prefix_list(@product.sub_category_id).each do |relp| %>
+      <div>
+        <h3><%= relp["prefix_#{get_loc}"] %>&nbsp;<%= relp["title_#{get_loc}"] %></h3>
+        <% product_image(relp.id).each do |img| %>
+            <%= image_tag img.product_img %>
+        <% end %>
+      </div>
+  <% end %>
+</article>

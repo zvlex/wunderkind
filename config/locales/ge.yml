@@ -20,7 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 ge:
-  hello: "Hello world"
   datetime:
       distance_in_words:
         less_than_x_minutes:
@@ -32,3 +31,7 @@ ge:
         about_x_hours:
           one: "about 1 hour"
           other: "about %{count} hours"
+
+  products:
+    show:
+      currency: "ლარი"

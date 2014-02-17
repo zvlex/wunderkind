@@ -6,7 +6,5 @@ module SubCategoriesHelper
       .select('*')
   end
 
-  def product_image(pid)
-    Image.where('product_id = ?', pid).limit(1)
-  end
+
 end
