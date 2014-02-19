@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211115838) do
+ActiveRecord::Schema.define(version: 20140219104112) do
 
   create_table "banners", force: true do |t|
     t.string   "title"
@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(version: 20140211115838) do
     t.datetime "updated_at"
   end
 
+  create_table "carts", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", force: true do |t|
     t.string   "title_ge"
     t.string   "title_en"
@@ -48,6 +53,14 @@ ActiveRecord::Schema.define(version: 20140211115838) do
     t.string   "product_img_content_type"
     t.integer  "product_img_file_size"
     t.datetime "product_img_updated_at"
+  end
+
+  create_table "line_items", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "cart_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "quantity",   default: 1
   end
 
   create_table "prefixes", force: true do |t|
@@ -74,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140211115838) do
     t.decimal  "discount",        precision: 8, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "point"
   end
 
   create_table "rails_admin_histories", force: true do |t|

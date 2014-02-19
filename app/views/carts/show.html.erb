@@ -1,0 +1,17 @@
+<% if notice %>
+    <p id="notice"><%= notice %></p>
+<% end %>
+
+<% @cart.line_items.each do |item| %>
+    <div>
+        <span><%= item.quantity %> &times; <%= item.product.title_ge %></span>
+        <span><%= item.per_item_price %>&nbsp;<%= t('products.show.currency') %></span>
+        <span><%= item.total_price %>&nbsp;<%= t('products.show.currency') %></span>
+    </div>
+<% end %>
+
+<div class="total_price">
+  <%= @cart.total_price %>&nbsp;<%= t('products.show.currency') %>
+</div>
+
+<%= button_to t('.empty_cart'), @cart, method: :delete, data: { confirm: 'Are you sure?' } %>

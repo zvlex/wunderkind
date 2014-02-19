@@ -35,3 +35,14 @@ ge:
   products:
     show:
       currency: "ლარი"
+      add_to_cart: 'კალათაში დამატება'
+
+  line_items:
+    create:
+      line_item_created: 'Line Item was successfully created'
+
+  carts:
+    show:
+      empty_cart: "კალათის გასუფთავება"
+    destroy:
+      current_empty_cart: "Your cart is currently empty"

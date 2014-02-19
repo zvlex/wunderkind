@@ -1,0 +1,14 @@
+<% unless cart.line_items.empty? %>
+    <div class="cart_title"><%= t('.title') %></div>
+    <table>
+      <%= render(@cart.line_items) %>
+      <tr class="total_line">
+        <td colspan="2">Total</td>
+        <td class="total_cell"><%= number_to_currency(@cart.total_price) %></td>
+      </tr>
+    </table>
+    <% unless @check == 'out' %>
+        <%= button_to t('.checkout'), new_order_path, method: :get %>
+    <% end %>
+    <%= button_to t('.empty'), @cart, method: :delete, remote: true, confirm: 'Are you sure?' %>
+<% end %>

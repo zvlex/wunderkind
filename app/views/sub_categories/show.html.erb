@@ -6,7 +6,10 @@
         <div>
           <%= link_to list["title_#{get_loc}"], product_path(list.id) %>
           <span>
-            <%= list.price %>&nbsp;<%= t('products.show.currency') %>&nbsp;- <%= list.quantity %> +
+            <%= list.price %>&nbsp;<%= t('products.show.currency') %>
+            <button class="minus">-</button>
+                <input type="text" class="quantity" value="0" size="2">
+            <button class="plus">+</button>
           </span>
         </div>
           <% product_image(list.id).each do |pimg|  %>

@@ -6,14 +6,19 @@
   <div>
     <% prefix_product_list(@prefix.id, @product.sub_category_id, @product.id).each do |p| %>
         <span>
-          <%= link_to p["title_#{get_loc}"], product_path(p.id) %></span>
-            &nbsp;
-            <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
-            <span>- <%= p.quantity %> +</span><br>
+          <span><%= link_to p["title_#{get_loc}"], product_path(p.id) %></span>
+          <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
+        </span>
+        <span>
+            <button class="minus">-</button>
+            <input type="text" class="quantity" value="0" size="2">
+            <button class="plus">+</button>
+          </span>
+        <span>
+          <%= button_to t('.add_to_cart'), line_items_path(product_id: p.id) %>
+        </span>
+
     <% end %>
-  </div>
-  <div>
-    <button>Add to Cart</button>
   </div>
 </article>
 <article>

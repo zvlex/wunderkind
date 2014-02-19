@@ -29,6 +29,7 @@ RailsAdmin.config do |config|
       field :model
       field :price
       field :discount
+      field :point
       field :brand
       field :in_stock
       field :quantity

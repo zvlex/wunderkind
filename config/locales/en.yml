@@ -35,3 +35,14 @@ en:
   products:
     show:
       currency: "GEL"
+      add_to_cart: 'Add to Cart'
+
+  line_items:
+    create:
+      line_item_created: 'Line Item was successfully created'
+
+  carts:
+    show:
+      empty_cart: "Empty Cart"
+    destroy:
+      current_empty_cart: "Your cart is currently empty"
