@@ -1,0 +1,16 @@
+<div>
+  <%= form_tag '' do %>
+      <span>
+          <span class="minus">-</span>
+          <span>
+             <%= text_field_tag 'quantity', line_item.quantity, size: 1, class: 'quantity' %>
+          </span>
+          <span class="plus">+</span>
+      </span>
+      <%= submit_tag t('.add_to_cart') %>
+  <% end %>
+
+  <span><%= line_item.product["title_#{get_loc}"] %></span>
+  <span><%= line_item.per_item_price %>&nbsp;<%= t('products.show.currency') %></span>
+  <span><%= line_item.total_price %>&nbsp;<%= t('products.show.currency') %></span>
+</div>

@@ -1,4 +1,5 @@
 class LineItemsController < ApplicationController
+
   include CurrentCart
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
@@ -12,6 +13,7 @@ class LineItemsController < ApplicationController
     end
   end
 
+
   def create
     product = Product.find(params[:product_id])
     quantity = params[:quantity]
@@ -20,7 +22,8 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.save
         #format.html { redirect_to @line_item.cart, notice: "#{params.inspect}" }
-        format.html { redirect_to @line_item.cart, notice: t('line_items.create.line_item_created') }
+        #format.html { redirect_to @line_item.cart, notice: t('line_items.create.line_item_created') }
+        format.js
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
@@ -34,6 +37,7 @@ class LineItemsController < ApplicationController
   def edit; end
   def update; end
   def destroy; end
+  def update_quantity; end
 
   def line_item_params
     params.require(:line_item).permit(:product_id)

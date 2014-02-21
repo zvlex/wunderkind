@@ -1,6 +1,6 @@
 <header>
   <div>
-    <%= link_to 'Wunderkind Logo', '#', id: 'logo' %>
+    <%= link_to 'Wunderkind Logo', '/', id: 'logo' %>
     <nav>
       <ul>
         <% categories[:cat].each do |cat| %>
@@ -13,5 +13,6 @@
         <% end %>
       </ul>
     </nav>
+    <div id="cart"><%= render @cart %></div>
   </div>
 </header>

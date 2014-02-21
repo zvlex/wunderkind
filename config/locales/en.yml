@@ -35,6 +35,9 @@ en:
   products:
     show:
       currency: "GEL"
+      items: "Product"
+      symbol: " | "
+      your_cart: "Your Cart"
       add_to_cart: 'Add to Cart'
 
   line_items:

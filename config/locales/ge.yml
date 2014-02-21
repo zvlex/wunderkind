@@ -35,6 +35,9 @@ ge:
   products:
     show:
       currency: "ლარი"
+      items: "პროდუქტი"
+      symbol: " | "
+      your_cart: "თქვენი კალათა"
       add_to_cart: 'კალათაში დამატება'
 
   line_items:

@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :set_i18n_locale_from_params
   helper_method :menu_items
 
-
+  include CurrentCart
+  before_action :set_cart
 
   protected
     def set_i18n_locale_from_params
