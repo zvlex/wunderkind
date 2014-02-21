@@ -10,14 +10,15 @@
           <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
         </span>
         <span>
-            <button class="minus">-</button>
-            <input type="text" class="quantity" value="0" size="2">
-            <button class="plus">+</button>
-          </span>
-        <span>
-          <%= button_to t('.add_to_cart'), line_items_path(product_id: p.id) %>
+          <%= form_tag line_items_path(product_id: p.id) do %>
+              <span class="minus">-</span>
+              <span>
+                <%= text_field_tag 'quantity', 0, size: 1, class: 'quantity' %>
+              </span>
+              <span class="plus">+</span>
+            <%= submit_tag t('.add_to_cart') %>
+          <% end %>
         </span>
-
     <% end %>
   </div>
 </article>

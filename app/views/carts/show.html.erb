@@ -4,7 +4,9 @@
 
 <% @cart.line_items.each do |item| %>
     <div>
+      <%= form_tag %>
         <span><%= item.quantity %> &times; <%= item.product.title_ge %></span>
+        <input type="text" size="2" value="<%= item.quantity %>">
         <span><%= item.per_item_price %>&nbsp;<%= t('products.show.currency') %></span>
         <span><%= item.total_price %>&nbsp;<%= t('products.show.currency') %></span>
     </div>
