@@ -5,3 +5,5 @@
 <%= render(@cart.line_items) %>
 <span><%= @cart.total_price %>&nbsp;<%= t('products.show.currency') %></span>
 <%= button_to t('carts.show.empty_cart'), @cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+<%= button_to t('carts.show.buy_product'), new_order_path, method: :get %>

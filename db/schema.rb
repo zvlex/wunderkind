@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219104112) do
+ActiveRecord::Schema.define(version: 20140226132901) do
 
   create_table "banners", force: true do |t|
     t.string   "title"
@@ -61,6 +61,26 @@ ActiveRecord::Schema.define(version: 20140219104112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "quantity",   default: 1
+    t.integer  "order_id"
+  end
+
+  add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+
+  create_table "orders", force: true do |t|
+    t.string   "invoice"
+    t.string   "store_name"
+    t.string   "store_url"
+    t.integer  "customer_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "payment_address"
+    t.integer  "payment_zone"
+    t.integer  "pay_type"
+    t.string   "comment"
+    t.decimal  "total",           precision: 10, scale: 0
+    t.string   "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "prefixes", force: true do |t|

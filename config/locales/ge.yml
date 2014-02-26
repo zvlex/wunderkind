@@ -47,5 +47,9 @@ ge:
   carts:
     show:
       empty_cart: "კალათის გასუფთავება"
+      buy_product: 'გადახდა'
+      recalculate_cart_items: 'გადათვლა'
+      remove_from_cart: 'წაშლა'
+      line_item_removed: 'პროდუქტი წარმატებით წაიშალა'
     destroy:
       current_empty_cart: "Your cart is currently empty"

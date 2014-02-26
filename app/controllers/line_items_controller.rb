@@ -1,8 +1,7 @@
 class LineItemsController < ApplicationController
-
   include CurrentCart
   before_action :set_cart, only: [:create]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  #before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   def show
     @line_item = LineItem.find(params[:id])
@@ -13,18 +12,18 @@ class LineItemsController < ApplicationController
     end
   end
 
-
   def create
     product = Product.find(params[:product_id])
     quantity = params[:quantity]
-    @line_item = @cart.add_product(product.id, quantity)
+    c = params[:c]
+    @line_item = @cart.add_product(product.id, quantity, c)
 
     respond_to do |format|
       if @line_item.save
-        #format.html { redirect_to @line_item.cart, notice: "#{params.inspect}" }
-        #format.html { redirect_to @line_item.cart, notice: t('line_items.create.line_item_created') }
-        format.js
-        format.json { render action: 'show', status: :created, location: @line_item }
+        @line_item.destroy if @line_item.quantity == 0
+        format.html { redirect_to @line_item.cart, notice: t('line_items.create.line_item_created') }
+        format.js { @c = c }
+        format.json { render json: @cart, status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
@@ -36,7 +35,26 @@ class LineItemsController < ApplicationController
   def new; end
   def edit; end
   def update; end
-  def destroy; end
+
+
+  def destroy
+    @line_item = LineItem.find(params[:id])
+    @cart = current_cart
+    begin
+      @line_item.destroy
+      flash[:notice] = t('products.show.line_item_removed')
+    rescue Exception => e
+      flash[:notice] = e.message
+    end
+
+    respond_to do |format|
+      format.html { redirect_to cart_path(@cart) }
+      format.json { head :no_content }
+    end
+
+  end
+
+
   def update_quantity; end
 
   def line_item_params

@@ -40,6 +40,7 @@ en:
       your_cart: "Your Cart"
       add_to_cart: 'Add to Cart'
 
+
   line_items:
     create:
       line_item_created: 'Line Item was successfully created'
@@ -47,5 +48,9 @@ en:
   carts:
     show:
       empty_cart: "Empty Cart"
+      buy_product: 'Checkout'
+      recalculate_cart_items: 'Recalculate'
+      remove_from_cart: 'Delete'
+      line_item_removed: 'Product successfully removed'
     destroy:
       current_empty_cart: "Your cart is currently empty"

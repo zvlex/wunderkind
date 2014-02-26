@@ -1,1 +1,4 @@
-$('#cart').html("<%= escape_javascript render @cart %>");
+$('#cart').html("<%= escape_javascript render(@cart) %>");
+<% if @c %>
+    window.location.reload();
+<% end %>

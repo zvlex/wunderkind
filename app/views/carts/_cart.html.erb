@@ -5,9 +5,11 @@
 <div><%= link_to t('products.show.your_cart'), cart_id %></div>
 <div class="total_cart">
   <% if get_loc == 'en' %>
-    <span><%= link_to pluralize(@cart.items_quantity, item), cart_id %></span><%= vertical_bar %>
+    <span><%= link_to pluralize(@cart.items_quantity, item), cart_id %></span>
+    <span><%= vertical_bar %></span>
   <% else %>
-      <span><%= link_to "#{@cart.items_quantity} #{item}", cart_id %></span><%= vertical_bar %>
+      <span><%= link_to "#{@cart.items_quantity} #{item}", cart_id %></span>
+      <span><%= vertical_bar %></span>
   <% end %>
   <span><%= link_to "#{@cart.total_price} #{t('products.show.currency')}", cart_id %></span>
 </div>

@@ -1,16 +1,27 @@
-<div>
-  <%= form_tag '' do %>
+<div class="line_item_cart">
+  <%= form_tag line_items_path(product_id: line_item.product_id), remote: true do %>
       <span>
           <span class="minus">-</span>
           <span>
              <%= text_field_tag 'quantity', line_item.quantity, size: 1, class: 'quantity' %>
+             <%= hidden_field_tag 'c', '1'  %>
           </span>
           <span class="plus">+</span>
       </span>
-      <%= submit_tag t('.add_to_cart') %>
+
+      <% if params[:controller] == 'carts' %>
+          <%= submit_tag t('carts.show.recalculate_cart_items') %>
+      <% else %>
+        <%= submit_tag t('products.show.add_to_cart') %>
+      <% end %>
   <% end %>
 
   <span><%= line_item.product["title_#{get_loc}"] %></span>
   <span><%= line_item.per_item_price %>&nbsp;<%= t('products.show.currency') %></span>
   <span><%= line_item.total_price %>&nbsp;<%= t('products.show.currency') %></span>
+  <span>
+    <%= link_to t('carts.show.remove_from_cart'),
+                {:action => :destroy, :controller => 'line_items', :id => line_item.id },
+                method: :delete %>
+  </span>
 </div>

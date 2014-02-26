@@ -10,7 +10,7 @@
           <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
         </span>
         <span>
-          <%= form_tag line_items_path(product_id: p.id) do %>
+          <%= form_tag line_items_path(product_id: p.id), remote: true do %>
               <span class="minus">-</span>
               <span>
                 <%= text_field_tag 'quantity', 0, size: 1, class: 'quantity' %>

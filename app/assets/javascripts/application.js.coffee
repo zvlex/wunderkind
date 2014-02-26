@@ -17,6 +17,7 @@
 
 
 ready = ->
+
   $(".plus").on "click", ->
     quantity = $(this).parent().find(".quantity")
     quantity.val Number(quantity.val()) + 1
