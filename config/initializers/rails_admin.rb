@@ -18,6 +18,7 @@ RailsAdmin.config do |config|
       config.label_methods << :title_ge
       config.label_methods << :category
       config.label_methods << :sex_ge
+      config.label_methods << :age_ge
       config.label_methods << :product_img_file_name
 
     edit do
@@ -53,6 +54,12 @@ RailsAdmin.config do |config|
       field :sex_id, :enum do
         enum do
           Sex.all.map { |c| [ c.sex_ge, c.id ] }
+        end
+      end
+
+      field :age_id, :enum do
+        enum do
+          Age.all.map { |c| [ c.age_ge, c.id ] }
         end
       end
 

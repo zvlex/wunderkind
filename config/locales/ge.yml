@@ -53,3 +53,8 @@ ge:
       line_item_removed: 'პროდუქტი წარმატებით წაიშალა'
     destroy:
       current_empty_cart: "Your cart is currently empty"
+
+  orders:
+    new:
+      delivery: 'ადგილზე მიტანა'
+      self_delivery: 'თვითმომსახურება'

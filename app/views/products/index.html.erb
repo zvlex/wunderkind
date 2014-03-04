@@ -1,3 +1,9 @@
 <% if notice %>
     <p id="notice"><%= notice %></p>
 <% end %>
+
+<% unless @products.nil? %>
+    <% @products.each do |l| %>
+    <%= l["title_#{get_loc}"] %>
+    <% end %>
+<% end %>

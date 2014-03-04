@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226132901) do
+ActiveRecord::Schema.define(version: 20140301150822) do
+
+  create_table "ages", force: true do |t|
+    t.string   "age_ge"
+    t.string   "age_en"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "banners", force: true do |t|
     t.string   "title"
@@ -74,11 +81,27 @@ ActiveRecord::Schema.define(version: 20140226132901) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "payment_address"
-    t.integer  "payment_zone"
-    t.integer  "pay_type"
+    t.integer  "payment_zone_id"
+    t.integer  "pay_type_id"
     t.string   "comment"
     t.decimal  "total",           precision: 10, scale: 0
     t.string   "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_methods", force: true do |t|
+    t.string   "method_name_ge"
+    t.string   "method_name_en"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_zones", force: true do |t|
+    t.string   "zone_name_ge"
+    t.string   "zone_name_en"
+    t.integer  "country_id"
+    t.decimal  "delivery_price", precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +131,7 @@ ActiveRecord::Schema.define(version: 20140226132901) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "point"
+    t.integer  "age_id"
   end
 
   create_table "rails_admin_histories", force: true do |t|

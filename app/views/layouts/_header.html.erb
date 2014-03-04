@@ -14,7 +14,14 @@
       </ul>
     </nav>
     <div id="cart">
-      <%= render @cart %>
+        <%= render @cart %>
+    </div>
+    <div>
+      <%= form_tag(products_path, :method => "get", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+          <%# hidden_field_tag :locale, get_loc %>
+          <%= submit_tag "Search", :name => nil %>
+      <% end %>
     </div>
   </div>
 </header>

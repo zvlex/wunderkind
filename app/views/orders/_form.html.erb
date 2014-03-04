@@ -1,3 +1,17 @@
 <%= form_for(@order) do |f| %>
+    <div>
+        <% if @order.errors.any? %>
+            <h2><%= pluralize(@order.errors.count, 'error') %></h2>
+            <ul>
+              <% @order.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+        <% end %>
+    </div>
 
+    <div>
+        <%= f.label :pay_type %>
+        <%= f.select :pay_type_id, options_from_collection_for_select(@payment_methods, 'id', "method_name_#{get_loc}")  %>
+    </div>
 <% end %>

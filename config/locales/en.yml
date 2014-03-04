@@ -54,3 +54,8 @@ en:
       line_item_removed: 'Product successfully removed'
     destroy:
       current_empty_cart: "Your cart is currently empty"
+
+  orders:
+    new:
+      delivery: 'Delivery'
+      self_delivery: 'Self-Delivery'

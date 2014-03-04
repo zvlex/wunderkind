@@ -1,0 +1,2 @@
+class PaymentZonesController < ApplicationController
+end
