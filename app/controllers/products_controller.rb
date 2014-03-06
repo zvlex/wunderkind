@@ -15,11 +15,9 @@ class ProductsController < ApplicationController
       cond_3 = (params[:brand][:id] == [''] && params[:age][:id] == [''] && params[:sex][:id]) ? true : false
       cond_4 = (params[:brand][:id] == [''] && params[:age][:id] == [''] && params[:sex][:id] == ['']) ? true : false
 
-
-
       @products = if params[:sub_category]
         Product
-        .search_with_sub(params[:sub_category][:id], params[:brand][:id], params[:age][:id], params[:sex][:id], cond_1, cond_2, cond_3, cond_4)
+        .search_with_sub(params[:sub_category][:id], params[:brand][:id], params[:age][:id], params[:sex][:id], cond_1, cond_2, cond_3, cond_4, params[:price_min], params[:price_max])
       else
         Product
         .search_without_sub(params[:brand][:id], params[:age][:id], params[:sex][:id], cond_1, cond_2, cond_3, params[:price_min], params[:price_max])

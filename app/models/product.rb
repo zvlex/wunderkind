@@ -12,12 +12,14 @@ class Product < ActiveRecord::Base
   attr_accessor :product_img
   accepts_nested_attributes_for :images, :allow_destroy => true
 
-  def self.search_with_sub(sub, brand, age, sex, cond_1, cond_2, cond_3, cond_4)
+  def self.search_with_sub(sub, brand, age, sex, cond_1, cond_2, cond_3, cond_4, price_min, price_max)
     if cond_3
       if cond_4
         where('sex_id IN (?) OR sub_category_id = ?', sex, sub)
+          .where('price BETWEEN ? AND ?', price_min, price_max)
       else
         where('sex_id IN (?) AND sub_category_id = ?', sex, sub)
+          .where('price BETWEEN ? AND ?', price_min, price_max)
       end
     else
       if cond_2
