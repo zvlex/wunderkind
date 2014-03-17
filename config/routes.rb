@@ -1,6 +1,9 @@
 Wunderkind::Application.routes.draw do
 
   devise_for :users
+  devise_for :customers,
+             controllers: {omniauth_callbacks: 'authentications', registrations: 'devise/registrations' }
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   scope '(:locale)' do
@@ -11,6 +14,7 @@ Wunderkind::Application.routes.draw do
     resources :line_items
     resources :orders
     resources :carts
+    resources :authentications
   end
 
 
@@ -19,7 +23,8 @@ Wunderkind::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#index'
+  #root 'static_pages#index'
+  root 'authentications#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -24,15 +24,17 @@ class OrdersController < ApplicationController
     session[:order_params].deep_merge!(params[:order]) if params[:order]
     @order = Order.new(session[:order_params])
     @order.current_step = session[:order_step]
-    if params[:back_button]
-      @order.previous_step
-    elsif @order.last_step?
-      @order.save
-    else
-      @order.next_step
-    end
-    session[:order_step] = @order.current_step
-
+    #if @order.valid?
+      if params[:back_button]
+        @order.previous_step
+      elsif @order.last_step?
+        @order.save
+        @cart.destroy
+      else
+        @order.next_step
+      end
+      session[:order_step] = @order.current_step
+      #end
     if @order.new_record?
       render 'new'
     else
@@ -42,5 +44,4 @@ class OrdersController < ApplicationController
     end
 
   end
-
 end

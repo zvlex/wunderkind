@@ -58,3 +58,5 @@ ge:
     new:
       delivery: 'ადგილზე მიტანა'
       self_delivery: 'თვითმომსახურება'
+    total: 'ჯამში'
+    sub_total: 'Sub-Total'

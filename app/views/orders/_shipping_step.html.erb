@@ -1,6 +1,4 @@
-<% @payment_methods = PaymentMethod.all %>
 <div>
   <pre>shipping</pre>
-  <%= select_tag 'payment_method', options_from_collection_for_select(@payment_methods, 'id', "method_name_#{get_loc}") %>
-  <%# %>
+  <%= f.collection_radio_buttons(:pay_type_id, PaymentMethod.all, :id, "method_name_#{get_loc}") %>
 </div>

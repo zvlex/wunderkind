@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   validates_presence_of :payment_method, :if => lambda { |o| o.current_step == 'shipping' }
+  validates_presence_of :billing_name, :if => lambda { |o| o.current_step == "billing" }
   attr_writer :current_step
 
   def current_step
@@ -25,4 +26,5 @@ class Order < ActiveRecord::Base
   def last_step?
     current_step == steps.last
   end
+
 end

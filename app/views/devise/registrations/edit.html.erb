@@ -1,0 +1,59 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <fieldset>
+  <legend><%= t('.customers.edit.customer_info') %></legend>
+  <div><%= f.label :first_name %><br />
+  <%= f.text_field :first_name %></div>
+
+  <div><%= f.label :last_name %><br />
+  <%= f.text_field :last_name %></div>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+  <%# f.email_field :email, :autofocus => true %>
+
+  <div><%= f.label :phone %><br />
+  <%= f.text_field :phone %></div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('.customers.edit.address_info') %></legend>
+    <div><%= f.label :pid %><br />
+      <%= f.text_field :pid %></div>
+
+    <div><%= f.label :payment_zone_id %><br />
+      <%= f.select :payment_zone_id, PaymentZone.all.collect { |p| [p["zone_name_#{get_loc}"], p.id] } %></div>
+
+    <div><%= f.label :address %><br />
+        <%= f.text_field :address %></div>
+
+    <div><%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code %></div>
+  </fieldset>
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <% unless @customer.encrypted_password.empty? %>
+  <fieldset>
+    <legend><%= t('.customers.edit.password_info') %></legend>
+  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%= f.password_field :password, :autocomplete => "off" %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('.customers.edit.password_confirmation') %></legend>
+  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+  <%= f.password_field :current_password %></div>
+  </fieldset>
+  <% end %>
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+<%= link_to "Back", :back %>

@@ -9,6 +9,9 @@ gem 'devise', '3.2.2'
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.14'
 gem 'paperclip', '~> 4.0.0'
+gem 'omniauth', '1.2.1'
+gem 'omniauth-facebook', '1.6.0'
+
 
 group  :development, :test do
   gem 'rspec-rails', '2.14.1'

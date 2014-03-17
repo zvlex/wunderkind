@@ -2,7 +2,7 @@
   <%= form_for @order do |f| %>
   <fieldset>
     <label>Please Enter Your Details</label>
-    <%= render "#{@order.current_step}_step", f: f %>
+    <%= render "#{@order.current_step}_step", :f => f %>
     <p><%= f.submit "Continue" %></p>
     <p><%= f.submit "Back", name: 'back_button' unless @order.first_step? %></p>
   </fieldset>

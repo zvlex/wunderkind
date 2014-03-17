@@ -1,1 +1,55 @@
-<pre>confirm</pre>
+<% payment_zone = PaymentZone.find(@order.payment_zone_id) %>
+<% pay_type = PaymentMethod.find(@order.pay_type_id) %>
+<fieldset>
+    <legend>Store</legend>
+    <div><%= t('.store_name') %>: <%= 'store_name' %></div>
+    <div><%= t('.store_link') %>: <%= 'store_link' %></div>
+    <div><%= t('.store_phone') %>: <%= 'store_phone' %></div>
+</fieldset>
+
+<fieldset>
+  <legend>method</legend>
+  <div><%= t('.payment_method') %>: <%= pay_type["method_name_#{get_loc}"] %></div>
+</fieldset>
+
+<fieldset>
+  <legend>info</legend>
+  <div><%= t('.first_name') %>: <%=h @order.first_name %></div>
+  <div><%= t('.last_name') %>: <%=h @order.last_name %></div>
+  <div><%= t('.phone') %>: <%=h @order.phone %></div>
+  <div><%= t('.pid') %>: <%=h @order.pid %></div>
+  <div><%= t('.payment_zone') %>: <%=h payment_zone["zone_name_#{get_loc}"] %></div>
+  <div><%= t('.payment_address') %>: <%=h @order.payment_address %></div>
+  <div><%= t('.zip_code') %>: <%=h @order.zip_code %></div>
+</fieldset>
+
+<fieldset>
+  <legend>cart</legend>
+  <div>
+    <% gel = t('products.show.currency') %>
+    <% @cart.line_items.each do |l| %>
+        <% product = Product.find(l.product_id) %>
+        <% prefix = Prefix.find(product.prefix_id) %>
+        <div>
+          <%= l.quantity  %> &times; <%= prefix["prefix_#{get_loc}"] %> <%= product["title_#{get_loc}"] %>
+          <%= l.per_item_price %> <%= gel %>
+          <%= l.total_price %> <%= gel %>
+        </div>
+    <% end %>
+    <div>
+      <%= t('orders.sub_total') %>:
+      <%= @cart.total_price %> <%= gel %>
+    </div>
+    <div>
+        <%=h payment_zone["zone_name_#{get_loc}"] %>:
+        <%= town_delivery = payment_zone.delivery_price %> <%= gel %>
+    </div>
+    <div>
+      <%= t('orders.total') %>:
+      <%= total = @cart.total_price + town_delivery %> <%= gel %>
+      <% @order.delivery_town = payment_zone.delivery_price %>
+      <% @order.invoice = generate_invoice %>
+      <% @order.total = total %>
+    </div>
+    </div>
+</fieldset>

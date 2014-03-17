@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301150822) do
+ActiveRecord::Schema.define(version: 20140316182544) do
 
   create_table "ages", force: true do |t|
     t.string   "age_ge"
     t.string   "age_en"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "authentications", force: true do |t|
+    t.integer  "customer_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "token"
+    t.string   "token_secret"
   end
 
   create_table "banners", force: true do |t|
@@ -50,6 +60,32 @@ ActiveRecord::Schema.define(version: 20140301150822) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "customers", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
+    t.string   "address"
+    t.string   "town"
+    t.integer  "payment_zone_id"
+    t.string   "zip_code"
+    t.string   "pid"
+  end
+
+  add_index "customers", ["email"], name: "index_customers_on_email", unique: true, using: :btree
+  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
 
   create_table "images", force: true do |t|
     t.integer  "product_id"
@@ -88,6 +124,10 @@ ActiveRecord::Schema.define(version: 20140301150822) do
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "zip_code"
+    t.string   "phone"
+    t.string   "pid"
+    t.decimal  "delivery_town",   precision: 10, scale: 0
   end
 
   create_table "payment_methods", force: true do |t|
@@ -174,6 +214,20 @@ ActiveRecord::Schema.define(version: 20140301150822) do
     t.string   "sub_img_content_type"
     t.integer  "sub_img_file_size"
     t.datetime "sub_img_updated_at"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "order_id"
+    t.integer  "status"
+    t.integer  "payment_method"
+    t.integer  "payment_type"
+    t.string   "ucode"
+    t.string   "description"
+    t.decimal  "amount",         precision: 8, scale: 2
+    t.string   "bonus_xp",                               default: "0"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
