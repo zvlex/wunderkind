@@ -1,0 +1,63 @@
+<% if @order.customer_id == current_customer.id  %>
+<% payment_zone = PaymentZone.find(@order.payment_zone_id) %>
+<% pay_type = PaymentMethod.find(@order.pay_type_id) %>
+<div id="invoice">
+<fieldset>
+  <legend>Store</legend>
+  <div><%= t('orders.store_name') %>: <%= 'store_name' %></div>
+  <div><%= t('orders.store_link') %>: <%= 'store_link' %></div>
+  <div><%= t('orders.store_phone') %>: <%= 'store_phone' %></div>
+  <div><%= t('orders.store_address') %>: <%= 'store_address' %></div>
+</fieldset>
+
+<fieldset>
+  <legend>შეკვეთების დეტალები</legend>
+  <div><%= t('orders.id') %>: #<%= @order.id %></div>
+  <div><%= t('orders.invoice') %>: <%= @order.invoice %></div>
+  <div><%= t('orders.order_date') %>: <%= @order.created_at.strftime("%Y/%m/%d") %></div>
+</fieldset>
+
+<fieldset>
+  <legend>გადამხდელის მონაცემები</legend>
+  <div><%= t('.first_name') %>: <%=h @order.first_name %></div>
+  <div><%= t('.last_name') %>: <%=h @order.last_name %></div>
+  <div><%= t('.phone') %>: <%=h @order.phone %></div>
+  <div><%= t('.pid') %>: <%=h @order.pid %></div>
+  <div><%= t('.payment_zone') %>: <%=h payment_zone["zone_name_#{get_loc}"] %></div>
+  <div><%= t('.payment_address') %>: <%=h @order.payment_address %></div>
+  <div><%= t('.zip_code') %>: <%=h @order.zip_code %></div>
+</fieldset>
+
+<fieldset>
+  <legend>order_products</legend>
+  <div>
+    <% gel = t('products.show.currency') %>
+    <% @order_products.each do |l| %>
+        <% product = Product.find(l.product_id) %>
+        <% prefix = Prefix.find(product.prefix_id) %>
+        <div>
+          <%= l.quantity  %> &times; <%= prefix["prefix_#{get_loc}"] %> <%= product["title_#{get_loc}"] %>
+          <%= l.per_price %> <%= gel %>
+          <%= l.total %> <%= gel %>
+        </div>
+    <% end %>
+    <div>
+      <%= t('orders.sub_total') %>:
+      <% totals = [] %>:
+      <% @order_products.each { |op| totals << op.total } %>
+      <%= totals.inject(:+) %> <%= gel %>
+    </div>
+    <div>
+      <%=h payment_zone["zone_name_#{get_loc}"] %>:
+      <%= town_delivery = payment_zone.delivery_price %> <%= gel %>
+    </div>
+    <div>
+      <%= t('orders.total') %>:
+      <%= (totals.inject(:+) + town_delivery).to_f %> <%= gel %>
+    </div>
+  </div>
+</fieldset>
+</div>
+<% else %>
+    <% flash[:notice] = "Not found" %>
+<% end %>

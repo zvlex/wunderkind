@@ -1,12 +1,11 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_cart,only: [ :new, :create ]
-  before_action :set_order, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_cart, only: [ :new, :create ]
+  #before_action :set_order, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @order = Order.all
+    @orders = Order.all.where('customer_id = ?', current_customer.id).order('created_at DESC').page(params[:page]).per(2)
   end
-
 
 
   def new
@@ -14,34 +13,77 @@ class OrdersController < ApplicationController
       redirect_to products_url, notice: 'Your cart is empty'
       return
     end
-    session[:order_params] ||= {}
-    @order = Order.new(session[:order_params])
-    @order.current_step = session[:order_step]
+
+    if customer_signed_in?
+      session[:order_params] ||= {}
+      session[:order_product] ||= {}
+      @order = Order.new(session[:order_params])
+      @order.current_step = session[:order_step]
+    else
+      redirect_to "/customers/sign_in?locale=#{get_loc}"
+    end
   end
 
+  def show
+    @order = Order.find(params[:id])
+    @order_products = OrderProduct.where('order_id = ?', @order.id)
+  end
+
+  def get_loc
+    params[:locale] ||= 'ge'
+  end
+
+  def add_order_products
+    @cart.line_items.each do |li|
+      product = Product.find(li.product_id)
+      op = OrderProduct.new(order_id: @order.id, product_id: li.product_id, title: product["title_#{get_loc}"],
+                            model: product.model, quantity: li.quantity, total: product.price * li.quantity,
+                            per_price: product.price.to_f)
+      product.quantity -= li.quantity if op.save
+      product.save
+    end
+  end
 
   def create
+    #raise @cart.line_items.inspect
+    @amount = Transaction.all.where('customer_id = ?', current_customer.id).sum('amount')
     session[:order_params].deep_merge!(params[:order]) if params[:order]
     @order = Order.new(session[:order_params])
+    session[:order_product][:order_id] = @order.id
     @order.current_step = session[:order_step]
-    #if @order.valid?
       if params[:back_button]
         @order.previous_step
       elsif @order.last_step?
-        @order.save
-        @cart.destroy
+        # Online payment
+        if @order.pay_type_id == 1
+          # Amount check
+          if @amount.to_f == 0
+            flash[:notice] = 'No money'
+            redirect_to @cart
+            return
+          elsif @amount.to_f >= session[:order_params][:total].to_f
+            Transaction.create(customer_id: current_customer.id, order_id: 0, amount: -(session[:order_params][:total].to_f)) if @order.save
+            add_order_products
+            clear_cart
+          else
+            flash[:notice] = 'You have not enough money'
+            redirect_to @cart
+            return
+          end
+        else
+          flash[:notice] = 'Order saved'
+          @order.save
+          add_order_products
+        end
       else
         @order.next_step
       end
       session[:order_step] = @order.current_step
-      #end
     if @order.new_record?
       render 'new'
     else
       session[:order_step] = session[:order_params] = nil
-      flash[:notice] = "Order saved"
       redirect_to @order
     end
-
   end
 end

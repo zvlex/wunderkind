@@ -1,0 +1,21 @@
+<% unless @orders.blank? %>
+    <table>
+      <tr>
+        <th><%= t('orders.description') %></th>
+        <th><%= t('orders.order_date') %></th>
+        <th><%= t('orders.total') %></th>
+        <th><%= t('orders.status') %></th>
+        <th><%= t('orders.action') %></th>
+      </tr>
+    <% @orders.each do |order| %>
+      <tr>
+        <td>#<%= order.id %></td>
+        <td><%= order.created_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
+        <td><%= order.total %> <%= t('products.show.currency') %></td>
+        <td><%= order.status %></td>
+        <td><%= link_to '[*]', order_path(order.id) %></td>
+      </tr>
+    <% end %>
+    </table>
+    <%= paginate @orders %>
+<% end %>

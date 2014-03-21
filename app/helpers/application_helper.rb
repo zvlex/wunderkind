@@ -17,11 +17,14 @@ module ApplicationHelper
   end
 
  def current_amount
-    Transaction.where('customer_id = ?', @customer.id)
+   Transaction.all.where('customer_id = ?', current_customer.id).sum('amount')
  end
 
   def generate_invoice
     "#{current_customer.id}-#{Time.now.to_i}"
   end
 
+  def meta_info
+    StoreInfo.first
+  end
 end

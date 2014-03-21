@@ -4,6 +4,7 @@
 
 <% unless @products.nil? %>
     <% @products.each do |l| %>
-    <%= l["title_#{get_loc}"] %>
+        <%= l["title_#{get_loc}"] %>
     <% end %>
+    <%= paginate @products %>
 <% end %>

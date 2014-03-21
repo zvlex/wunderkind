@@ -2,9 +2,10 @@
 <% pay_type = PaymentMethod.find(@order.pay_type_id) %>
 <fieldset>
     <legend>Store</legend>
-    <div><%= t('.store_name') %>: <%= 'store_name' %></div>
-    <div><%= t('.store_link') %>: <%= 'store_link' %></div>
-    <div><%= t('.store_phone') %>: <%= 'store_phone' %></div>
+    <div><%= t('.store_name') %>: <%= meta_info.store_name %></div>
+    <div><%= t('.store_link') %>: http://<%= request.host %></div>
+    <div><%= t('.store_phone') %>: <%= meta_info.store_phone %></div>
+    <div><%= t('.store_address') %>: <%= meta_info.store_address %></div>
 </fieldset>
 
 <fieldset>
@@ -46,10 +47,17 @@
     </div>
     <div>
       <%= t('orders.total') %>:
-      <%= total = @cart.total_price + town_delivery %> <%= gel %>
-      <% @order.delivery_town = payment_zone.delivery_price %>
-      <% @order.invoice = generate_invoice %>
-      <% @order.total = total %>
+      <%= total = (@cart.total_price + town_delivery).to_f %> <%= gel %>
+      <% delivery_town = payment_zone.delivery_price %>
+      <% invoice = generate_invoice %>
+      <% session[:order_params][:total] = total.to_s %>
+      <% session[:order_params][:delivery_town] = delivery_town %>
+      <% session[:order_params][:invoice] = invoice %>
+      <% session[:order_params][:ip] = request.env['REMOTE_ADDR'] %>
+      <% session[:order_params][:customer_id] = current_customer.id %>
+      <% session[:order_params][:status] = '0' %>
+      <% session[:order_params][:store_name] = meta_info.store_name %>
+      <% session[:order_params][:store_url] = "http://#{request.host}" %>
     </div>
     </div>
 </fieldset>

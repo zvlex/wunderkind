@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316182544) do
+ActiveRecord::Schema.define(version: 20140321095439) do
 
   create_table "ages", force: true do |t|
     t.string   "age_ge"
@@ -109,6 +109,20 @@ ActiveRecord::Schema.define(version: 20140316182544) do
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
 
+  create_table "order_products", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.string   "title"
+    t.string   "model"
+    t.integer  "quantity"
+    t.decimal  "total",        precision: 8, scale: 2
+    t.decimal  "delivery_tax", precision: 8, scale: 2
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "per_price",    precision: 8, scale: 2
+  end
+
   create_table "orders", force: true do |t|
     t.string   "invoice"
     t.string   "store_name"
@@ -120,7 +134,7 @@ ActiveRecord::Schema.define(version: 20140316182544) do
     t.integer  "payment_zone_id"
     t.integer  "pay_type_id"
     t.string   "comment"
-    t.decimal  "total",           precision: 10, scale: 0
+    t.decimal  "total",           precision: 10, scale: 2
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -128,6 +142,7 @@ ActiveRecord::Schema.define(version: 20140316182544) do
     t.string   "phone"
     t.string   "pid"
     t.decimal  "delivery_town",   precision: 10, scale: 0
+    t.string   "status"
   end
 
   create_table "payment_methods", force: true do |t|
@@ -200,6 +215,19 @@ ActiveRecord::Schema.define(version: 20140316182544) do
     t.text     "content_ge"
     t.text     "content_en"
     t.boolean  "status",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "store_infos", force: true do |t|
+    t.string   "store_name"
+    t.string   "store_owner"
+    t.string   "store_address"
+    t.string   "store_email"
+    t.string   "store_phone"
+    t.string   "meta_title"
+    t.string   "meta_description"
+    t.string   "meta_keywords"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

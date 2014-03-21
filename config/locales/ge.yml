@@ -60,3 +60,7 @@ ge:
       self_delivery: 'თვითმომსახურება'
     total: 'ჯამში'
     sub_total: 'Sub-Total'
+    order_date: 'თარიღი'
+    total_price: 'რაოდენობა (GEL)'
+    description: 'აღწერა'
+    status: 'სტატუსი'

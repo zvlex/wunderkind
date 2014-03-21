@@ -22,5 +22,24 @@
     <div><%= f.label :zip_code %><br />
       <%= f.text_field :zip_code, value: current_customer.zip_code %></div>
 <% else %>
-    gg
+    <div><%= f.label :first_name %><br />
+      <%= f.text_field :first_name, value: current_customer.first_name %></div>
+
+    <div><%= f.label :last_name %><br />
+      <%= f.text_field :last_name, value: current_customer.last_name %></div>
+
+    <div><%= f.label :phone %><br />
+      <%= f.text_field :phone, value: current_customer.phone %></div>
+
+    <div><%= f.label :pid %><br />
+      <%= f.text_field :pid, value: current_customer.pid %></div>
+
+    <div><%= f.label :payment_zone_id %><br />
+      <%= f.select :payment_zone_id, PaymentZone.all.collect { |p| [p["zone_name_#{get_loc}"], p.id] },  selected: current_customer.payment_zone_id %></div>
+
+    <div><%= f.label :payment_address %><br />
+      <%= f.text_field :payment_address, value: current_customer.address %></div>
+
+    <div><%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code, value: current_customer.zip_code %></div>
 <% end %>

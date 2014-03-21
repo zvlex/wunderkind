@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wunderkind.ge | <%= full_title(yield(:title)) %></title>
+  <title><%= meta_info.meta_title %> | <%= full_title(yield(:title)) %></title>
+  <meta name="description" content="<%= meta_info.meta_description %>">
+  <meta name="keywords" content="<%= meta_info.meta_keywords %>">
+  <meta charset="UTF-8">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>

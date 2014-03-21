@@ -11,7 +11,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :payment_zone_id
       t.integer :pay_type_id
       t.string :comment
-      t.decimal :total
+      t.decimal :total, precision: 8, scale: 2
       t.string :ip
 
       t.timestamps

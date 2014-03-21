@@ -13,6 +13,20 @@
         <% end %>
       </ul>
     </nav>
+    <div>
+      <% if customer_signed_in? %>
+          <pre><%= current_amount %></pre>
+          <strong><%= current_customer.first_name %> <%= current_customer.last_name %></strong>[<em><%= current_customer.email %></em>]
+          <%= link_to 'Edit profile', edit_customer_registration_path %> |
+          <%= link_to 'Orders', orders_path %> |
+          <%= link_to 'Authentications', authentications_path %> |
+          <%= link_to "Logout", destroy_customer_session_path, method: :delete %>
+      <% else %>
+          <%= link_to "Sign up", new_customer_registration_path %> |
+          <%= link_to "Login", new_customer_session_path %> |
+          <%= link_to "Facebook", customer_omniauth_authorize_path(:facebook) %>
+      <% end %>
+    </div>
     <div id="cart">
         <%# render @cart %>
     </div>
