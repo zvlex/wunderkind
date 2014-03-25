@@ -1,17 +1,10 @@
-<% amount = (@amount.to_i * 100).to_s %>
-<% h = order_code_hash %>
-<%= check = check_code_hash(@amount, h) %>
-
-
-
-
-<%= form_tag 'https://www.pay.ge/pay/', method: :post do %>
+<%= form_tag 'https://www.pay.ge/pay/', method: :post, id: 'pay_form' do %>
     <%= hidden_field_tag 'merchant', 'EMALL' %>
-    <%= hidden_field_tag 'ordercode', h %>
-    <%= hidden_field_tag 'amount', amount %>
+    <%= hidden_field_tag 'ordercode', @pay_h[:order_hash] %>
+    <%= hidden_field_tag 'amount', @pay_h[:amount] %>
     <%= hidden_field_tag 'currency', 'GEL' %>
     <%= hidden_field_tag 'description', PayConfig::DESCRIPTION %>
-    <%= hidden_field_tag 'clientname', customer_name %>
+    <%= hidden_field_tag 'clientname', @pay_h[:customer_name] %>
     <%= hidden_field_tag 'customdata', current_customer.id %>
     <%= hidden_field_tag 'ispreauth', PayConfig::ISPREAUTH_NO %>
     <%= hidden_field_tag 'lng', PayConfig::LANG %>
@@ -20,6 +13,7 @@
     <%= hidden_field_tag 'cancelurl', PayConfig::CANCEL_URL %>
     <%= hidden_field_tag 'callbackurl', PayConfig::CALLBACK_URL %>
     <%= hidden_field_tag 'testmode', PayConfig::TEST_MODE_ON %>
-    <%= hidden_field_tag 'check', check[0] %>
+    <%= hidden_field_tag 'check', @pay_h[:check_code] %>
     <%= submit_tag 'Continue' %>
 <% end %>
+

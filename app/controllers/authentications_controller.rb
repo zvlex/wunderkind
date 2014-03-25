@@ -80,8 +80,38 @@ class AuthenticationsController < ApplicationController
   end
 
   def pay
+    check = nil
+    amount = (params[:pay][:amount].to_i * 100).to_s
+    order_hash = order_code_hash
+    if check_code_hash(amount, order_hash).frozen?
+      check ''
+    else
+      check = check_code_hash(amount, order_hash)
+    end
+
+
     respond_to do |format|
-      format.html { @amount = params[:pay][:amount] }
+      format.html {
+        @pay_h = { check_code: check, amount: amount, order_hash: order_hash, customer_name: customer_name }
+      }
     end
   end
+
+  def order_code_hash
+    SecureRandom.uuid.split('-').join
+  end
+
+  def customer_name
+    customer = Customer.find(current_customer.id)
+    customer.first_name + ' ' + customer.last_name
+  end
+
+
+  def check_code_hash(amount, order_hash)
+    customer_id = current_customer.id
+    h = "#{PayConfig::MERCHANT_SECRET_KEY}#{PayConfig::MERCHANT_NAME}#{order_hash}#{amount}#{PayConfig::CURRENCY}#{PayConfig::DESCRIPTION}#{customer_name}#{customer_id}#{PayConfig::LANG}#{PayConfig::TEST_MODE_ON}#{PayConfig::ISPREAUTH_NO}"
+    (Digest::SHA256.hexdigest h).upcase
+  end
+
+
 end
