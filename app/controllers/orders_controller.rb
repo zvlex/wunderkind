@@ -36,9 +36,20 @@ class OrdersController < ApplicationController
   def add_order_products
     @cart.line_items.each do |li|
       product = Product.find(li.product_id)
+      total = if product.discount == 0
+                product.price * li.quantity
+              else
+                (product.price - product.discount).to_f * li.quantity
+              end
+      per_price = if product.discount == 0
+                    product.price.to_f
+                  else
+                    (product.price - product.discount).to_f
+                  end
+
       op = OrderProduct.new(order_id: @order.id, product_id: li.product_id, title: product["title_#{get_loc}"],
-                            model: product.model, quantity: li.quantity, total: product.price * li.quantity,
-                            per_price: product.price.to_f)
+                            model: product.model, quantity: li.quantity, total: total,
+                            per_price: per_price)
       product.quantity -= li.quantity if op.save
       product.save
     end

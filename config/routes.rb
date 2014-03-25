@@ -14,7 +14,12 @@ Wunderkind::Application.routes.draw do
     resources :line_items
     resources :orders
     resources :carts
-    resources :authentications
+    resources :authentications do
+      collection do
+        post 'pay'
+        get 'return_from_pay'
+      end
+    end
   end
 
 

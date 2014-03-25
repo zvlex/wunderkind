@@ -8,6 +8,9 @@
         <span>
           <span><%= link_to p["title_#{get_loc}"], product_path(p.id) %></span>
           <span><%= p.price %>&nbsp;<%= t('products.show.currency') %></span>
+          <% if p.discount != 0 %>
+            <span><%= (p.price - p.discount).to_f %>&nbsp;<%= t('products.show.currency') %></span>
+          <% end %>
         </span>
         <span>
           <%= form_tag line_items_path(product_id: p.id), remote: true do %>

@@ -7,6 +7,7 @@
           <%= link_to list["title_#{get_loc}"], product_path(list.id) %>
           <span>
             <%= list.price %>&nbsp;<%= t('products.show.currency') %>
+            <%= (list.price - list.discount).to_f %>&nbsp;<%= t('products.show.currency') %>
           </span>
         </div>
           <% product_image(list.id).each do |pimg|  %>

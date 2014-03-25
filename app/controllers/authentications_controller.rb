@@ -19,6 +19,31 @@ class AuthenticationsController < ApplicationController
     redirect_to authentications_url, :notice => "Successfully destroyed authentication."
   end
 
+  def return_from_pay
+   @h = {}
+   @h[:status]          = params[:status]
+   @h[:transactioncode] = params[:transactioncode]
+   @h[:datestring]      = params[:datestring]
+   @h[:amount]          = params[:amount]
+   @h[:currency]        = params[:currency]
+   @h[:ordercode]       = params[:ordercode]
+   @h[:paymethod]       = params[:paymethod]
+   @h[:customdata]      = params[:customdata]
+   @h[:testmode]        = params[:status]
+   @h[:check]           = params[:check]
+
+
+
+    #respond_to do |format|
+    #  format.xml # COMMENT THIS OUT TO USE YOUR CUSTOM XML RESPONSE INSTEAD  { render :xml => @capital_city }
+    #end
+    #render 'return_from_pay', layout: false
+    respond_to do |format|
+      format.html { @pay_hash = @h }
+      #format.xml  { render 'return_from_pay', layout: false }
+    end
+  end
+  def show; end
   def home; end
 
   def facebook
@@ -51,6 +76,12 @@ class AuthenticationsController < ApplicationController
         session[:omniauth] = omni.except('extra')
         redirect_to new_customer_registration_path
       end
+    end
+  end
+
+  def pay
+    respond_to do |format|
+      format.html { @amount = params[:pay][:amount] }
     end
   end
 end
