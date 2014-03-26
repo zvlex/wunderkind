@@ -23,26 +23,19 @@ class AuthenticationsController < ApplicationController
    @h = {}
    @h[:status]          = params[:status]
    @h[:transactioncode] = params[:transactioncode]
-   @h[:datestring]      = params[:datestring]
+   @h[:datestring]      = params[:date]
    @h[:amount]          = params[:amount]
    @h[:currency]        = params[:currency]
    @h[:ordercode]       = params[:ordercode]
    @h[:paymethod]       = params[:paymethod]
    @h[:customdata]      = params[:customdata]
-   @h[:testmode]        = params[:status]
+   @h[:testmode]        = params[:testmode]
    @h[:check]           = params[:check]
+   @pay_hash = @h
 
-
-
-    #respond_to do |format|
-    #  format.xml # COMMENT THIS OUT TO USE YOUR CUSTOM XML RESPONSE INSTEAD  { render :xml => @capital_city }
-    #end
-    #render 'return_from_pay', layout: false
-    respond_to do |format|
-      format.html { @pay_hash = @h }
-      #format.xml  { render 'return_from_pay', layout: false }
-    end
+   render 'return_from_pay', layout: false
   end
+
   def show; end
   def home; end
 

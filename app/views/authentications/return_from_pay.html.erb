@@ -1,1 +1,35 @@
-<%= return_hash_code(@pay_hash) %>
+<% return_hash = return_hash_code(@pay_hash) %>
+
+<div align="center">
+<% if @pay_hash[:check] != return_hash  %>
+    <span style='color: red; font-weight: bold'>Checksum error !</span>
+    <pre><%= @pay_hash[:check] %> != <%= return_hash %></pre>
+<% else %>
+    <span style='color: green; font-weight: bold'>Checksum correct</span>
+<% end %>
+</div>
+
+<table align="center">
+  <% @pay_hash.each do |key, value| %>
+    <tr><td><%= key %>:</td><td><%= value %></td></tr>
+  <% end %>
+</table>
+
+<div align="center">
+  <% if @pay_hash[:status] == PayConfig::TRANSACTION_STATUS_COMPLETED %>
+    <pre>Payment transaction completed !</pre>
+  <% else %>
+    <% if @pay_hash[:status] == PayConfig::TRANSACTION_STATUS_CANCELED %>
+        <pre>Payment transaction canceled !</pre>
+    <% else %>
+        <% if @pay_hash[:status] == PayConfig::TRANSACTION_STATUS_ERROR %>
+            <pre>Payment transaction completed with error !</pre>
+        <% else %>
+            <pre>Unknown status of transactions</pre>
+          <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div align="center"><%= link_to '<< Back', authentications_path %></div>
+
