@@ -82,7 +82,6 @@ class AuthenticationsController < ApplicationController
       check = check_code_hash(amount, order_hash)
     end
 
-
     respond_to do |format|
       format.html {
         @pay_h = { check_code: check, amount: amount, order_hash: order_hash, customer_name: customer_name }
@@ -107,4 +106,98 @@ class AuthenticationsController < ApplicationController
   end
 
 
+  def callback
+    @callback = {}
+    @callback[:status]          = params[:status]
+    @callback[:transactioncode] = params[:transactioncode]
+    @callback[:amount]          = params[:amount]
+    @callback[:currency]        = params[:currency]
+    @callback[:ordercode]       = params[:ordercode]
+    @callback[:paymethod]       = params[:paymethod]
+    @callback[:customdata]      = params[:customdata]
+    @callback[:testmode]        = params[:testmode]
+    @callback[:check_code]      = params[:check]
+
+
+    if @callback[:check_code].nil?
+      @callback[:check_code] = ''
+    end
+
+    callback_hash_code = callback_hash(@callback)
+    log('String for checksum', "#{@callback[:check_code]}", @callback[:transactioncode], '')
+    log('Calculated checksum', callback_hash_code.to_s, @callback[:transactioncode], '')
+
+    @g_xml = if @callback[:check_code].upcase != callback_hash_code
+      generate_xml(-3, error_codes(-3), 'Checksum error - check hash', @callback[:transactioncode])
+    else
+      if check_transaction(@callback[:transactioncode])
+                 save_order(@callback[:transactioncode], @callback[:amount])
+                 generate_xml(0, error_codes(0), 'Ok', @callback[:transactioncode])
+               else
+                 generate_xml(1, error_codes(1), 'This transaction code repeted', @callback[:transactioncode])
+               end
+    end
+    render :xml => @g_xml
+  end
+
+
+
+  def generate_xml(result_code, result_desc, description, transaction_code)
+    check = result_hash(result_code, result_desc, transaction_code)
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.result {
+        xml.resultcode result_code
+        xml.resultdesc result_desc
+        xml.check check
+        xml.data description
+      }
+    end
+    log('Generate XML code', '', transaction_code, builder.to_xml)
+    builder.to_xml
+  end
+
+  def result_hash(result_code, result_desc, transaction_code)
+    h = "#{result_code}#{result_desc}#{transaction_code}#{PayConfig::MERCHANT_SECRET_KEY}"
+    (Digest::SHA256.hexdigest h).upcase
+  end
+
+  def error_codes(code)
+    errors = {
+        0 => 'Ok', :'1' => 'Duplicate transaction',
+        -1 => 'Technical problem',
+        -2 => 'Order has been cancelled',
+        -3 => 'Error in parameter(s)'
+    }
+    errors[code]
+  end
+
+
+  def callback_hash(pay_hash)
+    h = "#{pay_hash[:status]}#{pay_hash[:transactioncode]}#{pay_hash[:amount]}#{pay_hash[:currency]}#{pay_hash[:ordercode]}#{pay_hash[:paymethod]}#{pay_hash[:customdata]}#{pay_hash[:testmode]}#{PayConfig::MERCHANT_SECRET_KEY}"
+    (Digest::SHA256.hexdigest h).upcase
+  end
+
+  def log(description, h_code, transaction_code, g_xml)
+    l = Logs.new(customer_id: current_customer.id, description: description, h_code: h_code, transaction_code: transaction_code, g_xml: g_xml)
+    if l.save
+      true
+    else
+      generate_xml(-1, error_codes(-1), 'Can not write to log', transaction_code)
+    end
+  end
+
+  def check_transaction(transaction_code)
+    transaction = Transaction.where('ucode = ?', transaction_code)
+    if transaction.blank?
+      true
+    else
+      false
+    end
+  end
+
+  def save_order(transaction_code, amount)
+    amount = amount.to_f
+    Transaction.new(customer_id: current_customer.id, status: '', payment_type: '1',
+                    ucode: transaction_code, description: 'Pay.ge Online Payment', amount: amount, bonus_xp: '0')
+  end
 end

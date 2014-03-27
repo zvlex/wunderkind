@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Payment Config
+/lib/pay_config.rb
+
 # Ignore other files
 database.yml
 doc/

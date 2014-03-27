@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321095439) do
+ActiveRecord::Schema.define(version: 20140326115609) do
 
   create_table "ages", force: true do |t|
     t.string   "age_ge"
@@ -108,6 +108,16 @@ ActiveRecord::Schema.define(version: 20140321095439) do
   end
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
+
+  create_table "logs", force: true do |t|
+    t.integer  "customer_id"
+    t.string   "description"
+    t.string   "h_code"
+    t.string   "transaction_code"
+    t.string   "g_xml"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "order_products", force: true do |t|
     t.integer  "order_id"

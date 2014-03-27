@@ -1,41 +1,71 @@
-<header>
-  <div>
-    <%= link_to 'Wunderkind Logo', '/', id: 'logo' %>
-    <nav>
-      <ul>
-        <% categories[:cat].each do |cat| %>
-            <li><%= link_to cat["title_#{get_loc}"], category_path(cat.id) %></li>
-            <ul>
-              <% categories[:sub].where(category_id: cat.id).each do |sub| %>
-                  <li><%= link_to sub["title_#{get_loc}"], sub_category_path(sub.id) %></li>
-              <% end %>
-            </ul>
-        <% end %>
-      </ul>
-    </nav>
-    <div>
-      <% if customer_signed_in? %>
-          <pre><%= current_amount %></pre>
-          <strong><%= current_customer.first_name %> <%= current_customer.last_name %></strong>[<em><%= current_customer.email %></em>]
-          <%= link_to 'Edit profile', edit_customer_registration_path %> |
-          <%= link_to 'Orders', orders_path %> |
-          <%= link_to 'Balance', authentications_path %> |
-          <%= link_to "Logout", destroy_customer_session_path, method: :delete %>
-      <% else %>
-          <%= link_to "Sign up", new_customer_registration_path %> |
-          <%= link_to "Login", new_customer_session_path %> |
-          <%= link_to "Facebook", customer_omniauth_authorize_path(:facebook) %>
-      <% end %>
-    </div>
-    <div id="cart">
-        <%# render @cart %>
-    </div>
-    <div>
-      <%= form_tag(products_path, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
-          <%# hidden_field_tag :locale, get_loc %>
-          <%= submit_tag "Search", :name => nil %>
-      <% end %>
-    </div>
-  </div>
-</header>
+<section class="full-width">
+    <header  class="full-width">
+      <div class="full-width" id="header-top-bar">
+        <div class="full-wrapp">
+          <ul class="inline-items float-left">
+            <% if customer_signed_in? %>
+                <li>balance: <%= current_amount %> lari</li>
+            <% else %>
+                <li><%= link_to 'შესვლა', new_customer_session_path %></li>
+                <li><%= link_to 'რეგისტრაცია', new_customer_registration_path %></li>
+                <li><%= link_to image_tag('fblogin.png', class: 'facebook_button'), customer_omniauth_authorize_path(:facebook) %></li>
+            <% end %>
+          </ul>
+          <ul class="inline-items float-right">
+            <% if customer_signed_in? %>
+                <li style="position: relative;"><a href="#" id="top-who-is">
+                  <%= current_customer.first_name %> <%= current_customer.last_name %>
+                </a>
+                  <ul class="balanceDrop">
+                    <li><%= link_to 'ჩემი მონაცამები', edit_customer_registration_path %></li>
+                    <li><%= link_to 'ჩემი შენაძენები', orders_path %></li>
+                    <li><%= link_to 'ჩემი ბალანსი', authentications_path %></li>
+                    <li><%= link_to 'Logout', destroy_customer_session_path, method: :delete %></li>
+                  </ul>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="full-wrapp" id="header-container">
+        <h1 class="w33per float-left" id="logo"><%= link_to image_tag('logo.png', class: 'full-width', alt: 'WunderKind.Ge'), '/' %></h1>
+
+        <div class="w36per float-left" id="top-navsearch">
+          <ul class="full-width inline-items float-left" id="top-stat-pages">
+            <li><%= link_to 'ჩვენს შესახებ', '#' %></li>
+            <li><%= link_to 'სერვისები', '#' %></li>
+            <li><%= link_to 'კონტაქტი', '#' %></li>
+          </ul>
+
+          <ul class="w21per float-left inline-items" id="top-soc-pages">
+            <li><a href="#"><%= link_to image_tag('top-fb-icon.png', alt: 'facebook page') %></a></li>
+            <li><a href="#"><%= link_to image_tag('top-vk-icon.png', alt: 'vk page') %></a></li>
+            <li><a href="#"><%= link_to image_tag('top-tw-icon.png', alt: 'tweeter page') %></a></li>
+          </ul>
+
+          <div class="w74per float-right" id="top-search-bar">
+            <%= form_tag(products_path, :method => 'get', id: 'search-form') do %>
+                <%= text_field_tag :search, params[:search], placeholder: 'ძიება' %>
+                <%= submit_tag '', :name => nil %>
+            <% end %>
+          </div>
+        </div>
+
+        <div id="cart">
+          <%= render @cart %>
+        </div>
+
+        <ul class="full-width" id="header-nav">
+          <% categories[:cat].each do |cat| %>
+              <li><%= link_to cat["title_#{get_loc}"], category_path(cat.id) %>
+              <ul>
+                <% categories[:sub].where(category_id: cat.id).each do |sub| %>
+                    <li><%= link_to sub["title_#{get_loc}"], sub_category_path(sub.id) %></li>
+                <% end %>
+              </ul>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+    <%= render 'layouts/left_column' %>

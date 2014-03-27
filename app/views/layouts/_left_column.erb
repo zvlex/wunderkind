@@ -1,12 +1,45 @@
-<div>
-  <%= form_tag(products_path, :method => 'get', id: 'filter-form') do %>
-    <div><%= collection_radio_buttons(:sub_category, :id, SubCategory.all, :id, :title_ge) %></div>
-    <div><%= collection_check_boxes(:brand, :id, Brand.all, :id, :title_ge) %></div>
-      <div><%= collection_check_boxes(:sex, :id, Sex.all, :id, :sex_ge) %></div>
-      <div><%= collection_check_boxes(:age, :id, Age.all, :id, :age_ge) %></div>
-      <div><%= hidden_field_tag 'price_min', Product.minimum('price') %></div>
-      <div><%= hidden_field_tag 'price_max', Product.maximum('price') %></div>
-      <div><%= hidden_field_tag 'f', 'f' %></div>
-      <%= submit_tag 'ok' %>
+<section class="full-wrapp">
+  <%= form_tag(products_path, :method => 'get', id: 'sidebar', class: 'mt10px gray-bg w23per blue-border border-8-radius float-left') do %>
+    <h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">Subs</h2>
+    <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
+      <%= collection_radio_buttons(:sub_category, :id, SubCategory.all, :id, :title_ge) do |b| %>
+          <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.radio_button + "\t#{b.text}" } %><br />
+      <% end %>
+    </div>
+
+    <h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">ბრენდი</h2>
+    <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
+        <%= collection_check_boxes(:brand, :id, Brand.all, :id, :title_ge) do |b| %>
+            <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <% end %>
+    </div>
+
+    <h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">სქესი</h2>
+    <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
+        <%= collection_check_boxes(:sex, :id, Sex.all, :id, :sex_ge) do |b| %>
+            <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <% end %>
+    </div>
+
+    <h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">ასაკი</h2>
+    <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
+        <%= collection_check_boxes(:age, :id, Age.all, :id, :age_ge) do |b| %>
+            <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <% end %>
+    </div>
+
+    <div class="w90per float-left mr1perc color-gray borderbGray ml5per" style="padding-bottom: 26px">
+        <h2 class="mt10px mb10px full-width float-left fs16px color-blue">Price</h2>
+        <div data-min="<%= Product.minimum('price') %>" data-max="<%= Product.maximum('price') %>" class="green-range-bar float-left w90per mw5per mt10px mb10px">
+            <span class="from"></span>
+            <span class="to"></span>
+            <span class="min-value fs14px color-gray"></span>
+            <span class="max-value fs14px color-gray"></span>
+            <%= hidden_field_tag 'price_min', Product.minimum('price') %>
+            <%= hidden_field_tag 'price_max', Product.maximum('price') %>
+            <%= hidden_field_tag 'f', 'f' %>
+        </div>
+    </div>
+      <%= submit_tag 'ok', class: 'standardButtonStyle float-left mr1perc color-gray borderbGray ml5per', style: 'margin-top: 17px; width: auto' %>
   <% end %>
-</div>
+</section>

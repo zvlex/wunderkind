@@ -1,4 +1,43 @@
-<footer>
-  <small>Powered by <span style="color: darkred">Rails</span> &copy; 2014</small>
-  <%= debug(params) if Rails.env.development? %>
+
+<small>Powered by <span style="color: darkred">Rails</span> &copy; 2014</small>
+<%= debug(params) if Rails.env.development? %>
+
+
+<footer class="full-width float-left mt14px" id="footer1">
+  <section class="full-width float-left" style="height: 50px;">
+  </section>
+
+  <section class="full-width float-left mt6px p" id="footer2">
+    <div class="full-wrapp">
+      <div class="full-width float-left">
+        <ul class="mt14px mb10px nino float-left inline-items fs18px color-black">
+          <li><a href="#">სავაადმყოფო</a></li>
+          <li><a href="#">პედიატრი</a></li>
+          <li><a href="#">ჭოჭინა</a></li>
+          <li><a href="#">პედიატრი</a></li>
+          <li><a href="#">ჭოჭინა</a></li>
+          <li><a href="#">პედიატრი</a></li>
+          <li><a href="#">გრდემლი</a></li>
+        </ul>
+
+        <ul class="mt10px mb10px float-right inline-items">
+          <li><%= link_to image_tag('fb-b.png') %></li>
+          <li><%= link_to image_tag('yb-b.png') %></li>
+          <li><%= link_to image_tag('gg-b.png') %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-wrapp">
+      <div class="full-width float-left">
+        <div class="float-left fs13px color-black ml10px mt14px mb6px">
+          &copy; Arr Rights Reserved
+        </div>
+
+        <div class="float-right fs13px color-black ml10px mt14px mb6px">
+          Created by: <a href="#" class="fs14px fbold" style="color: #000;">Stand<span class="color-blue" style="color: #0033cc;">ART</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
 </footer>
+</section>

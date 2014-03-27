@@ -18,6 +18,7 @@ Wunderkind::Application.routes.draw do
       collection do
         post 'pay'
         get 'return_from_pay'
+        get 'callback'
       end
     end
   end
