@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   include CurrentCart
   before_action :set_cart
 
-
   protected
     def set_i18n_locale_from_params
       if params[:locale]

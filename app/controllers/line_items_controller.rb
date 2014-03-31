@@ -22,7 +22,7 @@ class LineItemsController < ApplicationController
       if @line_item.save
         @line_item.destroy if @line_item.quantity == 0
         format.html { redirect_to @line_item.cart, notice: t('line_items.create.line_item_created') }
-        format.js { @c = c }
+        format.js { @c = c, flash[:success] = t('line_items.create.line_item_created') }
         format.json { render json: @cart, status: :created, location: @line_item }
       else
         format.html { render action: 'new' }

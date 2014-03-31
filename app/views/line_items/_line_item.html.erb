@@ -1,27 +1,32 @@
-<div class="line_item_cart">
+<tr class="full-width">
+  <td style="text-align: left;">
+    <% one_product_image(line_item.product_id).each do |img| %>
+        <%= link_to image_tag(img.product_img, style: 'width: 41px'), class: 'all-inherit' %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to line_item.product["title_#{get_loc}"], product_path(line_item.product_id), class: 'all-inherit' %>
+  </td>
   <%= form_tag line_items_path(product_id: line_item.product_id), remote: true do %>
-      <span>
-          <span class="minus">-</span>
-          <span>
-             <%= text_field_tag 'quantity', line_item.quantity, size: 1, class: 'quantity' %>
-             <%= hidden_field_tag 'c', '1'  %>
-          </span>
-          <span class="plus">+</span>
-      </span>
-
-      <% if params[:controller] == 'carts' %>
-          <%= submit_tag t('carts.show.recalculate_cart_items') %>
-      <% else %>
+  <td style="width: 178px; text-align: center;">
+    <span class="cartAddRem">
+      <button class="minus">-</button>
+        <%= text_field_tag 'quantity', line_item.quantity, size: 1, class: 'quantity' %>
+        <%= hidden_field_tag 'c', '1'  %>
+      <button class="plus">+</button>
+      <span>რაოდ.</span>
+    </span>
+    <% if params[:controller] == 'carts' %>
+        <%= submit_tag '', class: 'cartdelred' %>
+        <%= link_to '',
+                    {:action => :destroy, :controller => 'line_items', :id => line_item.id },
+                    method: :delete,  class: 'cartdelred' %>
+    <% else %>
         <%= submit_tag t('products.show.add_to_cart') %>
-      <% end %>
+    <% end %>
+  </td>
   <% end %>
+  <td><%= line_item.per_item_price %>&nbsp;<%= t('products.show.currency') %></td>
+  <td><%= line_item.total_price %>&nbsp;<%= t('products.show.currency') %></td>
+</tr>
 
-  <span><%= line_item.product["title_#{get_loc}"] %></span>
-  <span><%= line_item.per_item_price %>&nbsp;<%= t('products.show.currency') %></span>
-  <span><%= line_item.total_price %>&nbsp;<%= t('products.show.currency') %></span>
-  <span>
-    <%= link_to t('carts.show.remove_from_cart'),
-                {:action => :destroy, :controller => 'line_items', :id => line_item.id },
-                method: :delete %>
-  </span>
-</div>

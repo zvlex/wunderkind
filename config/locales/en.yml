@@ -60,6 +60,7 @@ en:
       delivery: 'Delivery'
       self_delivery: 'Self-Delivery'
     total: 'Total'
+    id: 'ID'
     sub_total: 'Sub-Total'
     order_date: 'Date Added'
     total_price: 'Total (GEL)'

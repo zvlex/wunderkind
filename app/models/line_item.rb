@@ -7,7 +7,7 @@ class LineItem < ActiveRecord::Base
     if product.discount == 0
       product.price * quantity
     else
-      (product.price - product.discount).to_f * quantity
+      product.discount * quantity
     end
   end
 
@@ -15,7 +15,7 @@ class LineItem < ActiveRecord::Base
     if product.discount == 0
       product.price
     else
-      (product.price - product.discount).to_f
+      product.discount
     end
   end
 

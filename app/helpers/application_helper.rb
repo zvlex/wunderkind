@@ -18,6 +18,7 @@ module ApplicationHelper
     Image.where('product_id = ?', pid).limit(1)
   end
 
+
  def current_amount
    Transaction.all.where('customer_id = ?', current_customer.id).sum('amount')
  end

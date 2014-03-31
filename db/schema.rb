@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326115609) do
+ActiveRecord::Schema.define(version: 20140329182934) do
 
   create_table "ages", force: true do |t|
     t.string   "age_ge"
@@ -160,6 +160,9 @@ ActiveRecord::Schema.define(version: 20140326115609) do
     t.string   "method_name_en"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description_ge"
+    t.text     "description_en"
+    t.string   "img_link"
   end
 
   create_table "payment_zones", force: true do |t|

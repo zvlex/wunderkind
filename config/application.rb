@@ -26,6 +26,8 @@ module Wunderkind
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :ge
+    config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
 
   end

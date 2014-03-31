@@ -6,13 +6,16 @@
   <%= link_to image_tag('top-cart-icon.png', class: 'float-left', alt: 'კალათა'), cart_id %>
   <div>
     <h3><%= link_to t('products.show.your_cart'), cart_id %></h3>
+    <div>
     <% if get_loc == 'en' %>
-        <span><%= link_to pluralize(@cart.items_quantity, item), cart_id %></span>
-        <span><%= vertical_bar %></span>
+
+        <%= link_to pluralize(@cart.items_quantity, item), cart_id %>
+        <%= vertical_bar %>
+
     <% else %>
-        <span><%= link_to "#{@cart.items_quantity} #{item}", cart_id %></span>
-        <span><%= vertical_bar %></span>
+          <%= link_to "#{@cart.items_quantity} #{item}", cart_id %>
+          <%= vertical_bar %>
     <% end %>
-    <span><%= link_to "#{@cart.total_price} #{t('products.show.currency')}", cart_id %></span>
+    <%= link_to "#{@cart.total_price} #{t('products.show.currency')}", cart_id %></div>
   </div>
 </div>

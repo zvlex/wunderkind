@@ -16,20 +16,21 @@
 
 
 $(document).ready(function() {
-    $(".plus").click(function() {
+    $(".plus").click(function(e) {
+        e.preventDefault();
         var quantity = $(this).parent().find(".quantity");
         quantity.val(Number(quantity.val()) + 1);
     });
 
-    $(".minus").click(function() {
+    $(".minus").click(function(e) {
+        e.preventDefault();
         var quantity = $(this).parent().find(".quantity");
         if(+quantity.val() <= 0) {
             quantity.val(0);
         } else {
             quantity.val(+(quantity.val()) - 1);
         }
-
-    })
+    });
 });
 
 
@@ -51,6 +52,8 @@ $(document).ready(function() {
             var rbt = rb.find('.to');
             var rbMin = rb.find('.min-value');
             var rbMax = rb.find('.max-value');
+            var fildMin = $('#price_min');
+            var fildMax = $('#price_max');
             var rbMinVal = Number(rb.attr('data-min'));
             var rbMaxVal = Number(rb.attr('data-max'));
 
@@ -72,13 +75,15 @@ $(document).ready(function() {
             var currPrice = Math.round((rbCP * (rbMaxVal - rbMinVal) / 100) + rbMinVal);
             //output
             th.css('left', rbCP+'%');
-            if(th.is(rbf)) rbMin.text(currPrice);
-            if(th.is(rbt)) rbMax.text(currPrice);
+            if(th.is(rbf)) { rbMin.text(currPrice); fildMin.val(currPrice); }
+            if(th.is(rbt)) { rbMax.text(currPrice); fildMax.val(currPrice); }
         }
     }
     new RangeBarFunc().loadvals();
     $('.green-range-bar > .from, .green-range-bar > .to').mousedown(function(){
         var th = $(this);
+        $('.green-range-bar > .from, .green-range-bar > .to').css('z-index', '10');
+        th.css('z-index', '12');
         $(document).mousemove(function(e) {
             new RangeBarFunc(th, e.pageX).ranging();
         });
@@ -186,4 +191,17 @@ $(document).ready(function() {
 
     //fade by timeing
     setInt();
+});
+
+
+$(document).ready(function() {
+    $('#top-who-is').click(function(e) {
+        e.preventDefault();
+        $(this).editBox('.balanceDrop');
+    });
+
+    $('#edit-pass').click(function(e) {
+        e.preventDefault();
+        $(this).editBox('.edit-pass-remable');
+    });
 });

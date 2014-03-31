@@ -47,6 +47,28 @@ class Product < ActiveRecord::Base
   end
 
 
+
+  def self.search_with_sub2(sub, brand, age, sex, cond_1, cond_2, cond_3, cond_4, price_min, price_max, prefix)
+    if cond_3
+      if cond_4
+        where('sex_id IN (?) OR sub_category_id = ?', sex, sub)
+        .where('price BETWEEN ? AND ? AND prefix_id = ?', price_min, price_max, prefix)
+      else
+        where('sex_id IN (?) AND sub_category_id = ?', sex, sub)
+        .where('price BETWEEN ? AND ? AND prefix_id = ?', price_min, price_max, prefix)
+      end
+    else
+      if cond_2
+        where("brand_id IN (?) #{cond_1} age_id IN (?)", brand, age).where('sex_id IN (?)', sex).where('sub_category_id = ?', sub)
+        .where('price BETWEEN ? AND ? AND prefix_id = ?', price_min, price_max, prefix)
+      else
+        where("brand_id IN (?) #{cond_1} age_id IN (?)", brand, age).where('sub_category_id = ?', sub)
+        .where('price BETWEEN ? AND ? AND prefix_id = ?', price_min, price_max, prefix)
+      end
+    end
+  end
+
+
   private
 
     def not_referenced_any_line_items

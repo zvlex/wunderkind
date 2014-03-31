@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [ :new, :create ]
+  before_action :set_cart, only: [ :new, :create, :show, :index ]
   #before_action :set_order, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -39,19 +39,23 @@ class OrdersController < ApplicationController
       total = if product.discount == 0
                 product.price * li.quantity
               else
-                (product.price - product.discount).to_f * li.quantity
+                product.discount * li.quantity
               end
       per_price = if product.discount == 0
                     product.price.to_f
                   else
-                    (product.price - product.discount).to_f
+                    product.discount
                   end
 
       op = OrderProduct.new(order_id: @order.id, product_id: li.product_id, title: product["title_#{get_loc}"],
                             model: product.model, quantity: li.quantity, total: total,
                             per_price: per_price)
       product.quantity -= li.quantity if op.save
-      product.save
+      if product.save
+        flash[:success] = 'Order added'
+      else
+        flash[:error] = 'Order canceled'
+      end
     end
   end
 
@@ -62,11 +66,12 @@ class OrdersController < ApplicationController
     @order = Order.new(session[:order_params])
     session[:order_product][:order_id] = @order.id
     @order.current_step = session[:order_step]
+    if @order.valid?
       if params[:back_button]
         @order.previous_step
       elsif @order.last_step?
         # Online payment
-        if @order.pay_type_id == 1
+        if @order.pay_type_id == 2
           # Amount check
           if @amount.to_f == 0
             flash[:notice] = 'No money'
@@ -90,6 +95,7 @@ class OrdersController < ApplicationController
         @order.next_step
       end
       session[:order_step] = @order.current_step
+    end
     if @order.new_record?
       render 'new'
     else

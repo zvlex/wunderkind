@@ -34,8 +34,8 @@ ge:
 
   products:
     show:
-      currency: "ლარი"
-      items: "პროდუქტი"
+      currency: "ლ"
+      items: "პროდ."
       symbol: " | "
       your_cart: "თქვენი კალათა"
       add_to_cart: 'კალათაში დამატება'
@@ -58,7 +58,9 @@ ge:
     new:
       delivery: 'ადგილზე მიტანა'
       self_delivery: 'თვითმომსახურება'
+
     total: 'ჯამში'
+    id: 'ID'
     sub_total: 'Sub-Total'
     order_date: 'თარიღი'
     total_price: 'რაოდენობა (GEL)'

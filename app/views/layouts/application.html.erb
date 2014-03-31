@@ -12,9 +12,13 @@
 </head>
 <body class="<%= controller.controller_name %>">
     <%= render 'layouts/header', categories: menu_items %>
-    <div class="container">
+    <section class="full-wrapp">
+      <%= render 'layouts/left_column' %>
         <%= yield %>
-      <%= render 'layouts/footer' %>
-    </div>
+    </section>
+    <%= render 'layouts/footer' %>
+    <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 </body>
 </html>

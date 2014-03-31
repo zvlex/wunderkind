@@ -1,10 +1,31 @@
-<% if notice %>
-    <p id="notice"><%= notice %></p>
+<% if @cart.total_price != 0 %>
+<section class="mt10px w76per float-right" id="main-section">
+  <section class="full-width float-left mt10px">
+    <h2 class="full-width float-left mb10px fs18px fbold">
+      კატეგორიის ან ბრენდის სახელი ჰია
+    </h2>
+    <table class="perprodStyle cartStyle" cellspacing="0" cellpadding="0">
+      <tbody class="full-width">
+      <tr class="full-width" style="text-align: center;">
+        <th style="text-align: left;">სურათი</th>
+        <th>სათაური</th>
+        <th>რაოდენობა</th>
+        <th>ცალის ფასი</th>
+        <th>საერთო ფასი</th>
+      </tr>
+      <%= render(@cart.line_items) %>
+      </tbody>
+    </table>
+    <div style="padding: 30px; background: #e7e7e7; text-align: right; clear: both; font-size: 24px;">
+      <%= @cart.total_price %>&nbsp;<%= t('products.show.currency') %>
+    </div>
+    <div class="full-width float-left mt14px">
+      <%= link_to 'უკან დაბრუნება', '', class: 'standardButtonStyle' %>
+      <%= link_to t('carts.show.empty_cart'), @cart, method: :delete, data: { confirm: 'Are you sure?' }, class: 'standardButtonStyle', style: 'margin-left: 14px' %>
+      <%= link_to t('carts.show.buy_product'), new_order_path, method: :get, class: 'standardButtonStyle', style: 'float: right' %>
+    </div>
+  </section>
+</section>
+<% else %>
+    <% flash.now[:error] = 'Cart is empty' %>
 <% end %>
-
-<%= render(@cart.line_items) %>
-<span><%= @cart.total_price %>&nbsp;<%= t('products.show.currency') %></span>
-<%= button_to t('carts.show.empty_cart'), @cart, method: :delete, data: { confirm: 'Are you sure?' } %>
-
-
-<%= button_to t('carts.show.buy_product'), new_order_path, method: :get %>

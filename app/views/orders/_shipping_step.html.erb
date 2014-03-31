@@ -1,4 +1,15 @@
-<div>
-  <pre>shipping</pre>
-  <%= f.collection_radio_buttons(:pay_type_id, PaymentMethod.all, :id, "method_name_#{get_loc}") %>
-</div>
+<h2 class="full-width float-left mb10px fs18px fbold">
+  კატეგორიის ან ბრენდის სახელი ჰია
+</h2>
+<%= f.collection_radio_buttons(:pay_type_id, PaymentMethod.all, :id, "method_name_#{get_loc}") do |b| %>
+    <% payment_method = PaymentMethod.find(b.value) %>
+    <div class="w46per float-left pad2h mt14px">
+        <%= b.label(:'data-value' => b.value, class: 'full-width float-left fs18px') { b.radio_button + "\t#{b.text}" } %>
+      <div class="full-width float-left fs15px color-gray mt6px">
+        <%=raw payment_method["description_#{get_loc}"] %>
+      </div>
+      <figure class="full-width float-left mt14px center-text">
+        <%= image_tag payment_method['img_link'] %>
+      </figure>
+    </div>
+<% end %>

@@ -30,7 +30,7 @@
 }
 
 @font-face {
-    src: url("nino.ttf");
+    src: url('nino.ttf');
     font-family: nino;
 }
 
@@ -171,7 +171,7 @@ a {
     overflow: hidden;
     color: #fff;
     font-family: nino;
-    font-size: 14px;
+    font-size: 13px;
     padding-top: 11px;
 }
 
@@ -187,6 +187,7 @@ a {
 .prodpost > aside {
     height: 30px;
     overflow: hidden;
+    text-align: right;
 }
 
 .green-range-bar {
@@ -202,6 +203,7 @@ a {
     background: url("rangebutt.png") center center no-repeat;
     position: absolute;
     top: -6px;
+    z-index: 10;
 }
 
 .green-range-bar > .from { left: 0; margin-left: -7px; }
@@ -328,7 +330,7 @@ a {
 }
 #top-cart > div > div > a {
     color: #0090cc;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 #header-nav {
@@ -448,7 +450,7 @@ a {
     overflow: hidden;
 }
 
-.formfieldL > span {
+.formfieldL > label {
     width: 90%;
     float: left;
     display: block;
@@ -458,7 +460,7 @@ a {
     padding-left: 5px;
 }
 
-.formfieldL > input[type="text"], .formfieldL > input[type="password"], .formfieldL > textarea {
+.formfieldL > input[type="text"], .formfieldL > input[type="password"], .formfieldL > textarea, .formfieldL > select {
     width: 92%;
     height: 36px;
     border: 1px solid #7ad6f2;
@@ -466,6 +468,10 @@ a {
     float: left;
     padding-left: 4px;
     padding-right: 4px;
+}
+
+.formfieldL > select {
+    width: 95%;
 }
 
 .formfieldL > input[type="submit"], .standardButtonStyle {
@@ -509,7 +515,8 @@ a {
     padding-right: 6px;
 }
 
-.cartAddRem {
+/* .cartAddRem */
+.cartAddRem  {
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow: hidden;

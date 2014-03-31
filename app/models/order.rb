@@ -1,6 +1,13 @@
 class Order < ActiveRecord::Base
-  validates_presence_of :payment_method, :if => lambda { |o| o.current_step == 'shipping' }
-  validates_presence_of :billing_name, :if => lambda { |o| o.current_step == "billing" }
+  validates_presence_of :pay_type_id, :if => lambda { |o| o.current_step == 'shipping' }
+  validates_presence_of :first_name, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :last_name, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :phone, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :pid, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :payment_zone_id, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :payment_address, :if => lambda { |o| o.current_step == 'billing' }
+  validates_presence_of :zip_code, :if => lambda { |o| o.current_step == 'billing' }
+
   attr_writer :current_step
 
   def current_step
