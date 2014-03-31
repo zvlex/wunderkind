@@ -204,4 +204,16 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).editBox('.edit-pass-remable');
     });
+
 });
+
+
+$(document).ready(function() {
+    $('.alerts').click(function(){
+        $(this).animate({opacity: 0}, 500, function() {
+            $(this).css({'opacity': '1', 'display': 'none'});
+        });
+    });
+});
+
+

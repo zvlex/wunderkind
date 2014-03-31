@@ -18,7 +18,9 @@
     </section>
     <%= render 'layouts/footer' %>
     <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
+    <div class="alerts alert-<%= key %>">
+      <div class="full-wrapp"><%= value %></div>
+    </div>
     <% end %>
 </body>
 </html>

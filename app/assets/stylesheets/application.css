@@ -652,3 +652,23 @@ a {
     margin-top: -5px;
     margin-bottom: -7px;
 }
+
+
+/* alert */
+
+
+.alerts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 14px 5%;
+    width: 90%;
+    color: #fff;
+    font-size: 17px;
+    z-index: 40;
+    cursor: pointer;
+}
+
+.alert-success { background-color: rgba(0, 204, 0, 0.9); }
+.alert-notice { background-color: rgba(204, 204, 0, 0.9); }
+.alert-error { background-color: rgba(204, 0, 0, 0.9); }
