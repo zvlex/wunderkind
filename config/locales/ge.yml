@@ -35,6 +35,7 @@ ge:
   products:
     show:
       currency: "ლ"
+      balance: "ლარი"
       items: "პროდ."
       symbol: " | "
       your_cart: "თქვენი კალათა"

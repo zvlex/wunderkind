@@ -66,8 +66,8 @@
       <% totals = [] %>
       <% @order_products.each { |op| totals << op.total } %>
       <%= totals.inject(:+) %> <%= gel %><br />
-      <b><%=h payment_zone["zone_name_#{get_loc}"] %>: </b><%= town_delivery = payment_zone.delivery_price %> <%= gel %><br />
-      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= (totals.inject(:+) + town_delivery).to_f %> <%= gel %></span>
+      <b><%=h payment_zone["zone_name_#{get_loc}"] %>: </b><%= sprintf('%.2f', town_delivery = payment_zone.delivery_price) %> <%= gel %><br />
+      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= sprintf('%.2f', (totals.inject(:+) + town_delivery).to_f) %> <%= gel %></span>
     </p>
   </section>
 </section>

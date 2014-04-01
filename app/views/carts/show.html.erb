@@ -17,7 +17,7 @@
       </tbody>
     </table>
     <div style="padding: 30px; background: #e7e7e7; text-align: right; clear: both; font-size: 24px;">
-      <%= @cart.total_price %>&nbsp;<%= t('products.show.currency') %>
+      <%= sprintf('%.2f', @cart.total_price) %>&nbsp;<%= t('products.show.currency') %>
     </div>
     <div class="full-width float-left mt14px">
       <%= link_to 'უკან დაბრუნება', '', class: 'standardButtonStyle' %>

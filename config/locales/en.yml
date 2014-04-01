@@ -35,6 +35,7 @@ en:
   products:
     show:
       currency: "GEL"
+      balance: "ლარი"
       items: "Product"
       symbol: " | "
       your_cart: "Your Cart"

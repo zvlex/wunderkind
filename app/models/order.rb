@@ -8,6 +8,11 @@ class Order < ActiveRecord::Base
   validates_presence_of :payment_address, :if => lambda { |o| o.current_step == 'billing' }
   validates_presence_of :zip_code, :if => lambda { |o| o.current_step == 'billing' }
 
+
+  validates_format_of :pid, :with => /\A\d{11}$\z/, :on => :create, :if => lambda { |o| o.current_step == 'billing' }
+  validates_format_of :phone, :with => /\A\d{9}$\z/, :on => :create, :if => lambda { |o| o.current_step == 'billing' }
+  validates_format_of :zip_code, :with => /\A\d{3,7}$\z/, :on => :create, :if => lambda { |o| o.current_step == 'billing' }
+
   attr_writer :current_step
 
   def current_step

@@ -19,7 +19,7 @@
               <tbody class="full-width">
               <tr class="full-width" style="text-align: left;">
                 <th class="full-width" colspan="4">
-                  <%= link_to prefix["prefix_#{get_loc}"], products.first, class: 'all-inherit' %>
+                  <%= link_to prefix["prefix_#{get_loc}"], '#', class: 'all-inherit' %>
                 </th>
               </tr>
 
@@ -29,14 +29,12 @@
                 <td style="width: 300px;"><%= link_to list["title_#{get_loc}"], product_path(list.id), class: 'all-inherit' %></td>
                 <td style="width: 100px; text-align: right;">
                   <% if list.discount == 0 %>
-                      <%= "#{list.price} #{t('products.show.currency')}" %>
+                      <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
                   <% else %>
-                      <%= "#{list.discount} #{t('products.show.currency')}" %><br />
+                      <%= "#{sprintf('%.2f',list.discount)} #{t('products.show.currency')}" %><br />
                       <span class="mt14px color-gray fs14px stroke">
-                        <%= "#{list.price} #{t('products.show.currency')}" %>
+                        <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
                       </span>
-
-
                   <% end %>
                 </td>
                 <td style="width: 178px; text-align: center">

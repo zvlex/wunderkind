@@ -3,7 +3,7 @@
     <div class="full-wrapp">
       <ul class="inline-items float-left">
         <% if customer_signed_in? %>
-            <li>balance: <%= current_amount %> lari</li>
+            <li>ბალანსი: <%= sprintf('%.2f', current_amount) %> <%= t('products.show.balance') %></li>
         <% else %>
             <li><%= link_to 'შესვლა', new_customer_session_path %></li>
             <li><%= link_to 'რეგისტრაცია', new_customer_registration_path %></li>

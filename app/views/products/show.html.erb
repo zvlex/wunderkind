@@ -22,10 +22,14 @@
           <tr class="full-width gray-bg" style="text-align: left; border-top: 1px solid #ccc;">
             <td style="width: 300px;"><%= link_to p["title_#{get_loc}"], product_path(p.id) %></td>
             <td style="width: 100px; text-align: right;">
-              <% if p.discount != 0 %>
-                  <%= (p.price - p.discount).to_f %>&nbsp;<%= t('products.show.currency') %>
+              <% if p.discount == 0 %>
+                  <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
+              <% else %>
+                  <%= "#{sprintf('%.2f', p.discount)} #{t('products.show.currency')}" %><br />
+                      <span class="mt14px color-gray fs14px stroke">
+                        <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
+                      </span>
               <% end %>
-              <%= p.price %>&nbsp;<%= t('products.show.currency') %>
             </td>
             <td style="width: 178px; text-align: center;">
               <%= form_tag line_items_path(product_id: p.id), remote: true do %>
@@ -74,13 +78,13 @@
           </h3>
           <aside class="full-width float-left fs28px color-blue mt6px mb6px" style="<%= 'text-align:center !important;' if relp.discount == 0 %>">
             <span class="mt14px color-gray fs14px float-left stroke">
-               <%= "#{relp.price} #{t('products.show.currency')}" if relp.discount != 0 %>
+               <%= "#{sprintf('%.2f', relp.price)} #{t('products.show.currency')}" if relp.discount != 0 %>
             </span>
             &nbsp;&nbsp;
             <% if relp.discount == 0 %>
-                <%= "#{relp.price} #{t('products.show.currency')}" %>
+                <%= "#{sprintf('%.2f', relp.price)} #{t('products.show.currency')}" %>
             <% else %>
-                <%= "#{relp.discount} #{t('products.show.currency')}" %>
+                <%= "#{sprintf('%.2f', relp.discount)} #{t('products.show.currency')}" %>
             <% end %>
           </aside>
         </article>

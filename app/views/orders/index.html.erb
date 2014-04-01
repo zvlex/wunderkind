@@ -16,7 +16,7 @@
               <tr>
                 <td>#<%= order.id %></td>
                 <td><%= order.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-                <td><%= order.total %> <%= t('products.show.currency') %></td>
+                <td><%= sprintf('%.2f', order.total) %> <%= t('products.show.currency') %></td>
                 <td><%= order.status %></td>
                 <td><%= link_to 'ინვოისი', order_path(order.id), class: 'standardButtonStyle', style: 'float: right; margin: 10px 0' %></td>
               </tr>

@@ -55,9 +55,9 @@
           <%= l.total_price %> <%= gel %>
         </b><br />
         <% end %>
-      <b><%= t('orders.sub_total') %>: </b><%= @cart.total_price %> <%= gel %><br />
-      <b><%=h payment_zone["zone_name_#{get_loc}"] %>: </b><%= town_delivery = payment_zone.delivery_price %> <%= gel %><br />
-      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= total = (@cart.total_price + town_delivery).to_f %> <%= gel %></span>
+      <b><%= t('orders.sub_total') %>: </b><%= sprintf('%.2f', @cart.total_price) %> <%= gel %><br />
+      <b><%=h payment_zone["zone_name_#{get_loc}"] %>: </b><%= sprintf('%.2f', town_delivery = payment_zone.delivery_price) %> <%= gel %><br />
+      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= sprintf('%.2f', total = (@cart.total_price + town_delivery).to_f) %> <%= gel %></span>
     </p>
   </section>
 </section>

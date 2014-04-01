@@ -460,7 +460,7 @@ a {
     padding-left: 5px;
 }
 
-.formfieldL > input[type="text"], .formfieldL > input[type="password"], .formfieldL > textarea, .formfieldL > select {
+.formfieldL > input[type="text"], .formfieldL > input[type="password"], .formfieldL > input[type="email"], .formfieldL > textarea, .formfieldL > select {
     width: 92%;
     height: 36px;
     border: 1px solid #7ad6f2;
@@ -468,6 +468,26 @@ a {
     float: left;
     padding-left: 4px;
     padding-right: 4px;
+}
+
+.field_with_errors > input[type="text"], .field_with_errors > input[type="password"], .field_with_errors > input[type="email"], .field_with_errors > textarea, .field_with_errors > select {
+    width: 92%;
+    height: 36px;
+    border: 1px solid red;
+    border-radius: 6px;
+    float: left;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.field_with_errors > label {
+    width: 90%;
+    float: left;
+    display: block;
+    margin-bottom: 6px;
+    color: #1159a7;
+    font-size: 15px;
+    padding-left: 5px;
 }
 
 .formfieldL > select {
@@ -655,8 +675,6 @@ a {
 
 
 /* alert */
-
-
 .alerts {
     position: fixed;
     top: 0;
@@ -672,3 +690,12 @@ a {
 .alert-success { background-color: rgba(0, 204, 0, 0.9); }
 .alert-notice { background-color: rgba(204, 204, 0, 0.9); }
 .alert-error { background-color: rgba(204, 0, 0, 0.9); }
+
+
+
+
+/* Custom Float Right for Submit button in Login page*/
+
+.custom-float-right {
+    float: right !important;
+}

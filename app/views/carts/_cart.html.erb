@@ -16,6 +16,6 @@
           <%= link_to "#{@cart.items_quantity} #{item}", cart_id %>
           <%= vertical_bar %>
     <% end %>
-    <%= link_to "#{@cart.total_price} #{t('products.show.currency')}", cart_id %></div>
+    <%= link_to "#{sprintf('%.2f', @cart.total_price)} #{t('products.show.currency')}", cart_id %></div>
   </div>
 </div>
