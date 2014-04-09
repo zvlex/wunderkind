@@ -217,3 +217,94 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+    $('#print-invoice').click(function() {
+            var newCnt = document.getElementById('printable-content').innerHTML;
+            var newWind = window.open('', '_blank');
+            newWind.document.write('<div style="width: 960px; margin: 0 auto;"><h2 class="full-width float-left mt10px fs18px fbold">WunderKind.Ge</h2>'+newCnt+'</div>');
+            newWind.print();
+            newWind.close();
+        });
+});
+
+
+
+// Home Slider
+
+
+$(document).ready(function() {
+    var fadeSpeed = 1000;
+    var clickSwitch = true;
+    var imgCl = '.topSliderEach';
+    var buttCl = '.topSliderButt';
+    var buttId = 'topSliderButtHover';
+    var imgCounter = $(imgCl).length;
+    var currImg = 0;
+    var lastImg;
+    var fdInterval;
+
+    //append buttons
+    var buttons = '';
+    for(i = 0; i < imgCounter; i++) {
+        buttons = (i == 0) ? buttons+'<span name="'+i+'" class="topSliderButt" id="'+buttId+'"></span>' : buttons+'<span name="'+i+'" class="topSliderButt"></span>';
+    }
+    $('#topSliderButtBar').html(buttons);
+
+    //make first visible
+    $(imgCl+':eq(0)').css({
+        opacity: 1,
+        display: 'block'
+    });
+
+    $(window).load(function() {
+        $("#main-slider").css('height', $(imgCl).height());
+    });
+
+    //timeing functions
+    function setInt() { //set timeing
+        fdInterval = window.setInterval(function() {
+            fadeImages(Number(currImg) + 1);
+        }, 10000);
+    }
+
+    function clrInt() { //clear timeing
+        window.clearInterval(fdInterval);
+    }
+
+    //fadeing function
+    function fadeImages(imgNum) {
+        if(clickSwitch) {
+            lastImg = currImg;
+            currImg = imgNum;
+            if(currImg >= imgCounter) currImg = 0;
+
+            if(lastImg != currImg) {
+                //change hover button
+                $(buttCl).removeAttr('id');
+                $(buttCl+':eq('+currImg+')').attr('id', buttId);
+
+                //change images
+                $(imgCl+':eq('+lastImg+')').animate({opacity: 0}, fadeSpeed, function() {
+                    $(imgCl+':eq('+lastImg+')').css('display', 'none');
+                });
+                $(imgCl+':eq('+currImg+')').css('display', 'block');
+                $(imgCl+':eq('+currImg+')').animate({opacity: 1}, fadeSpeed, function(){
+                    clickSwitch = true; setInt();
+                });
+
+                //window.alert('curr:'+currImg+' / Last:'+lastImg);
+
+                clickSwitch = false;
+                clrInt();
+            }
+        }
+    }
+
+    //fade by click
+    $(buttCl).click(function() {
+        fadeImages($(this).attr('name'));
+    });
+
+    //fade by timeing
+    setInt();
+});

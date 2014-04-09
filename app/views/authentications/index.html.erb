@@ -1,7 +1,9 @@
-<h1>Authentications#index</h1>
-<p>Find me in app/views/authentications/index.html.erb</p>
-
-<%= form_for :pay, url: { action: 'pay' }  do |f| %>
-    <%= f.text_field 'amount' %>
-    <%= f.submit 'ok' %>
+<%= form_for :pay, url: { action: 'pay' }, class: 'full-width float-left mt10px' do |f| %>
+    <div class="formfieldL float-left">
+      <%= f.label 'თანხა' %>
+      <%= f.text_field 'amount' %>
+    </div>
+    <div class="formfieldL">
+      <%= f.submit 'დასტური', class: 'standardButtonStyle custom-float-right' %>
+    </div>
 <% end %>

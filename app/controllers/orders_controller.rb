@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @user = User.first
     @order = Order.find(params[:id])
     @order_products = OrderProduct.where('order_id = ?', @order.id)
   end
@@ -78,7 +79,11 @@ class OrdersController < ApplicationController
             redirect_to @cart
             return
           elsif @amount.to_f >= session[:order_params][:total].to_f
-            Transaction.create(customer_id: current_customer.id, order_id: 0, amount: -(session[:order_params][:total].to_f)) if @order.save
+            minus_amount = (-1 * session[:order_params][:total].to_i).to_f
+            Transaction
+              .create(customer_id: current_customer.id, order_id: @order.id, amount: minus_amount, status: 0,
+                      payment_type: 0, payment_method: @order.pay_type_id, ucode: '',
+                      description: "Order ID: ##{@order.id}", bonus_xp: 0) if @order.save
             add_order_products
             clear_cart
           else

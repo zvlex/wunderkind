@@ -197,7 +197,7 @@ class AuthenticationsController < ApplicationController
 
   def save_order(transaction_code, amount)
     amount = amount.to_f
-    Transaction.new(customer_id: current_customer.id, status: '', payment_type: '1',
+    Transaction.new(customer_id: current_customer.id, status: '', payment_type: 1, payment_method: 0,
                     ucode: transaction_code, description: 'Pay.ge Online Payment', amount: amount, bonus_xp: '0')
   end
 end

@@ -11,6 +11,7 @@ Wunderkind::Application.routes.draw do
     resources :categories
     resources :sub_categories
     resources :products
+    resources :brands
     resources :line_items
     resources :orders
     resources :carts

@@ -8,7 +8,7 @@
 
       <figure class="w23per float-left center-text">
         <% product_image(@product.id).each do |img| %>
-        <%= image_tag img.product_img, style: 'width: 175px'  %>
+        <%= image_tag img.product_img(:medium), style: 'width: 175px'  %>
         <% end %>
       </figure>
 
@@ -18,8 +18,9 @@
         <table class="full-width float-left perprodStyle">
           <tbody class="full-width">
 
+          <% i = 0 %>
           <% prefix_product_list(@prefix.id, @product.sub_category_id, @product.id).each do |p| %>
-          <tr class="full-width gray-bg" style="text-align: left; border-top: 1px solid #ccc;">
+          <tr class="full-width <%= 'gray-bg' if i == 0 %>" style="text-align: left; border-top: 1px solid #ccc;">
             <td style="width: 300px;"><%= link_to p["title_#{get_loc}"], product_path(p.id) %></td>
             <td style="width: 100px; text-align: right;">
               <% if p.discount == 0 %>
@@ -43,6 +44,7 @@
               <% end %>
             </td>
           </tr>
+              <% i += 1 %>
           <% end %>
           </tbody>
         </table>
@@ -67,7 +69,7 @@
         <article class="w27per pw1per mr6per float-left prodpost bor1gray borRad">
           <div class="full-width float-left mt6px bor1gray borRad">
             <% product_image(relp.id).each do |img| %>
-                <%= image_tag img.product_img, style: 'width: 216px' %>
+                <%= image_tag img.product_img(:index), style: 'width: 216px' %>
             <% end %>
             <div class="prodshad full-width">
               <%= link_to image_tag('cart-icon-too.png') + " კალათაში დამათება", product_path(relp.id), class: 'add-to-cart' %>

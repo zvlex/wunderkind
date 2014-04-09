@@ -16,10 +16,10 @@
         <% a = Prefix.find(k) %>
         <% b = Product.where('prefix_id = ?', k) %>
         <article class="perprodStyleOut full-width float-left">
-          <% b.each do |img| %>
+          <% b.first(1).each do |img| %>
               <% product_image(img.id).each do |pimg|  %>
                   <figure class="w23per float-left center-text">
-                    <%= image_tag pimg.product_img, style: 'width: 175px'  %>
+                    <%= image_tag pimg.product_img(:index), style: 'width: 175px'  %>
                   </figure>
               <% end %>
           <% end %>
@@ -32,20 +32,21 @@
                 <%= link_to a["prefix_#{get_loc}"], '#', class: 'all-inherit' %>
             </th>
             </tr>
+            <% i = 0 %>
             <% @products.each do |p|  %>
                 <% if p.prefix_id == k %>
-            <tr class="full-width">
+            <tr class="full-width <%= 'gray-bg' if i == 0 %>">
               <td style="width: 300px">
-                <a href="#" class="all-inherit"><%= link_to p.title_ge, product_path(p.id) %></a>
+                <%= link_to p.title_ge, product_path(p.id), class: 'all-inherit' %>
               </td>
               <td style="width: 100px; text-align: right;">
                 <% if p.discount == 0 %>
-                    <%= "#{p.price} #{t('products.show.currency')}" %>
+                    <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
                 <% else %>
-                      <span class="mt14px color-gray fs14px float-left stroke">
-                        <%= "#{p.price} #{t('products.show.currency')}" %>
+                    <%= "#{sprintf('%.2f', p.discount)} #{t('products.show.currency')}" %><br />
+                      <span class="mt14px color-gray fs14px stroke">
+                        <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
                       </span>
-                    <%= "#{p.discount} #{t('products.show.currency')}" %>
                 <% end %>
               </td>
               <td style="width: 178px; text-align: center;">
@@ -61,6 +62,7 @@
               </td>
             </tr>
                 <% end %>
+                <% i += 1 %>
                 <% end %>
             </tbody>
             </table>
@@ -77,7 +79,7 @@
         <% products.each do |img| %>
             <% product_image(img.id).each do |pimg|  %>
                 <figure class="w23per float-left center-text">
-                  <%= image_tag pimg.product_img, style: 'width: 175px'  %>
+                  <%= image_tag pimg.product_img(:index), style: 'width: 175px'  %>
                 </figure>
             <% end %>
         <% end %>
@@ -94,12 +96,12 @@
             <td style="width: 300px"><a href="#" class="all-inherit"><%= list["title_#{get_loc}"] %></a></td>
             <td style="width: 100px; text-align: right;">
               <% if list.discount == 0 %>
-                  <%= "#{list.price} #{t('products.show.currency')}" %>
+                  <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
               <% else %>
-                      <span class="mt14px color-gray fs14px float-left stroke">
-                        <%= "#{list.price} #{t('products.show.currency')}" %>
+                  <%= "#{sprintf('%.2f', list.discount)} #{t('products.show.currency')}" %><br />
+                      <span class="mt14px color-gray fs14px stroke">
+                        <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
                       </span>
-                  <%= "#{list.discount} #{t('products.show.currency')}" %>
               <% end %>
             </td>
             <td style="width: 178px; text-align: center;">
@@ -120,10 +122,11 @@
     </article>
     <% end %>
     <% end %>
-        </section>
-</section>
+
 <% if @products.nil? %>
     <% flash.now[:notice] = 'Not found' %>
 <% else %>
 <%= paginate @products %>
 <% end %>
+  </section>
+</section>

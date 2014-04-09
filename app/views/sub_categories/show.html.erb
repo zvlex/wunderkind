@@ -6,10 +6,10 @@
     <% @prefixes.each do |prefix| %>
         <article class="perprodStyleOut full-width float-left">
           <% products = product_list(prefix.id) %>
-          <% products.each do |img| %>
+          <% products.first(1).each do |img| %>
               <% product_image(img.id).each do |pimg|  %>
                   <figure class="w23per float-left center-text">
-                    <%= image_tag pimg.product_img, style: 'width: 175px'  %>
+                    <%= image_tag pimg.product_img(:medium), style: 'width: 175px'  %>
                   </figure>
               <% end %>
           <% end %>
@@ -56,8 +56,7 @@
           </aside>
         </article>
     <% end %>
+    <%= paginate @prefixes %>
   </section>
 </section>
 
-
-<%# paginate @prefixes %>

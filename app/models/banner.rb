@@ -1,26 +1,37 @@
 class Banner < ActiveRecord::Base
-  has_attached_file :img_url, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :img_url, :styles => { :medium => '760x243#', :thumb => '110x42#' }, :default_url => '/images/:style/missing.png'
   validates_attachment_content_type :img_url, :content_type => /\Aimage\/.*\Z/
-
-  #has_attached_file :img_url
-  #attr_accessible :asset, :asset_cache, :remove_asset
 
   validates :title, presence: true
 
-
   rails_admin do
+
+    label I18n.t('admin.banner.menu_name')
+    label_plural I18n.t('admin.banner.menu_name')
 
     list do
       field :id
-      field :title
-      field :status
-      field :img_url
+      field :title do
+        label I18n.t('admin.banner.title')
+      end
+      field :status do
+        label I18n.t('admin.banner.status')
+      end
+      field :img_url do
+        label I18n.t('admin.banner.img')
+      end
     end
 
     edit do
-      field :title
-      field :status
-      field :img_url, :paperclip
+      field :title do
+        label I18n.t('admin.banner.title')
+      end
+      field :status do
+        label I18n.t('admin.banner.status')
+      end
+      field :img_url, :paperclip do
+        label I18n.t('admin.banner.img')
+      end
     end
 
   end

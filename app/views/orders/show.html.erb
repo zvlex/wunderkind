@@ -1,4 +1,5 @@
-<% if @order.customer_id == current_customer.id  %>
+<% if current_customer || current_user %>
+<% if @order.customer_id == current_customer.id %>
 <% payment_zone = PaymentZone.find(@order.payment_zone_id) %>
 <% pay_type = PaymentMethod.find(@order.pay_type_id) %>
 
@@ -75,3 +76,4 @@
     <% flash.now[:error] = "Not found" %>
 <% end %>
 </section>
+<% end %>

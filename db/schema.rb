@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329182934) do
+ActiveRecord::Schema.define(version: 20140407204813) do
 
   create_table "ages", force: true do |t|
     t.string   "age_ge"
@@ -228,6 +228,13 @@ ActiveRecord::Schema.define(version: 20140329182934) do
     t.text     "content_ge"
     t.text     "content_en"
     t.boolean  "status",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", force: true do |t|
+    t.string   "status_ge"
+    t.string   "status_en"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
