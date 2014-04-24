@@ -38,7 +38,7 @@
                 <button class="minus">-</button>
                 <%= text_field_tag 'quantity', 0, size: 1, class: 'quantity' %>
                 <button class="plus">+</button>
-                <span>რაოდ.</span>
+                <span><%= t('layouts.quantity') %></span>
               </span>
               <%= submit_tag '', class: 'buttCartSmall' %>
               <% end %>

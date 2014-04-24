@@ -11,8 +11,10 @@ module ProductsHelper
   end
 
   def search_product_list(search, prefix)
-    @products = Product.where("title_#{get_loc} LIKE ? AND prefix_id = ? AND quantity > 0", "%#{search}%", prefix).page(params[:page]).per(1)
+    @products = Product.where("title_#{get_loc} LIKE ? AND prefix_id = ? AND quantity > 0", "%#{search}%", prefix)
   end
+
+
 
   def filter_product_list(sub, brand, age, sex, cond_1, cond_2, cond_3, cond_4, price_min, price_max, prefix)
     Product.joins('LEFT JOIN prefixes ON (prefixes.id = products.prefix_id)')

@@ -20,6 +20,36 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  views:
+    pagination:
+      first: '<span>First</span>'
+      previous: '<span>Previous</span>'
+      next: '<span>Next</span>'
+      last: '<span>Last</span>'
+  layouts:
+    not_found: 'არაფერი არ არის ნაპოვნი'
+    balance: 'Balance'
+    sign_in: 'Sign In'
+    sign_up: 'Sign Up'
+    email: 'Email'
+    edit_profile: 'Edit Profile'
+    my_orders: 'My Orders'
+    my_balance: 'My Balance'
+    logout: 'Logout'
+    about_us: 'About Us'
+    service: 'Services'
+    contact: 'Contact'
+    search: 'Search'
+    quantity: 'რაოდ.'
+    new_products: 'ახალი პროდუქცია'
+
+  activerecord:
+    errors:
+      models:
+        order:
+          attributes:
+            first_name:
+              blank: 'black'
   datetime:
       distance_in_words:
         less_than_x_minutes:
@@ -48,8 +78,17 @@ en:
 
   carts:
     show:
-      empty_cart: "Empty Cart"
-      buy_product: 'Checkout'
+      back: 'უკან დაბრუნება'
+      confirm: 'Are you sure?'
+      image: 'სურათი'
+      title: 'სათაური'
+      quantity: 'რაოდენობა'
+      per_price: 'ცალის ფასი'
+      total_price: 'საერთო ფასი'
+      empty_cart: "კალათის გასუფთავება"
+      cart_empty: 'Cart is empty'
+      buy_product: 'გადახდა'
+      product_list: 'პროდუქტების სია'
       recalculate_cart_items: 'Recalculate'
       remove_from_cart: 'Delete'
       line_item_removed: 'Product successfully removed'
@@ -57,6 +96,9 @@ en:
       current_empty_cart: "Your cart is currently empty"
 
   orders:
+    index:
+      order_list: 'Order list'
+      invoice: 'Invoice'
     new:
       delivery: 'Delivery'
       self_delivery: 'Self-Delivery'

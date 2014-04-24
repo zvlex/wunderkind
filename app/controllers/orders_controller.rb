@@ -26,8 +26,20 @@ class OrdersController < ApplicationController
 
   def show
     @user = User.first
-    @order = Order.find(params[:id])
-    @order_products = OrderProduct.where('order_id = ?', @order.id)
+    begin
+      if authenticate_customer!
+        @order = Order.find(params[:id])
+        if @order.customer_id == current_customer.id
+          @order_products = OrderProduct.where('order_id = ?', @order.id)
+        else
+          redirect_to root_path
+        end
+      else
+        redirect_to root_path
+      end
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path
+    end
   end
 
   def get_loc

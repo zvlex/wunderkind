@@ -3,10 +3,10 @@
     <div class="full-wrapp">
       <ul class="inline-items float-left">
         <% if customer_signed_in? %>
-            <li>ბალანსი: <%= sprintf('%.2f', current_amount) %> <%= t('products.show.balance') %></li>
+            <li><%= t('layouts.balance') %>: <%= sprintf('%.2f', current_amount) %> <%= t('products.show.balance') %></li>
         <% else %>
-            <li><%= link_to 'შესვლა', new_customer_session_path %></li>
-            <li><%= link_to 'რეგისტრაცია', new_customer_registration_path %></li>
+            <li><%= link_to t('layouts.sign_in'), new_customer_session_path %></li>
+            <li><%= link_to t('layouts.sign_up'), new_customer_registration_path %></li>
             <li><%= link_to image_tag('fblogin.png', class: 'facebook_button'), customer_omniauth_authorize_path(:facebook) %></li>
         <% end %>
       </ul>
@@ -16,10 +16,10 @@
               <%= current_customer.first_name %> <%= current_customer.last_name %>
             </a>
               <ul class="balanceDrop">
-                <li><%= link_to 'ჩემი მონაცამები', edit_customer_registration_path %></li>
-                <li><%= link_to 'ჩემი შენაძენები', orders_path %></li>
-                <li><%= link_to 'ჩემი ბალანსი', authentications_path %></li>
-                <li><%= link_to 'Logout', destroy_customer_session_path, method: :delete %></li>
+                <li><%= link_to t('layouts.edit_profile'), edit_customer_registration_path %></li>
+                <li><%= link_to t('layouts.my_orders'), orders_path %></li>
+                <li><%= link_to t('layouts.my_balance'), authentications_path %></li>
+                <li><%= link_to t('layouts.logout'), destroy_customer_session_path, method: :delete %></li>
               </ul>
             </li>
         <% end %>
@@ -31,9 +31,9 @@
 
     <div class="w36per float-left" id="top-navsearch">
       <ul class="full-width inline-items float-left" id="top-stat-pages">
-        <li><%= link_to 'ჩვენს შესახებ', '#' %></li>
-        <li><%= link_to 'სერვისები', '#' %></li>
-        <li><%= link_to 'კონტაქტი', '#' %></li>
+        <li><%= link_to t('layouts.about_us'), '#' %></li>
+        <li><%= link_to t('layouts.service'), '#' %></li>
+        <li><%= link_to t('layouts.contact'), '#' %></li>
       </ul>
 
       <ul class="w21per float-left inline-items" id="top-soc-pages">
@@ -44,7 +44,7 @@
 
       <div class="w74per float-right" id="top-search-bar">
         <%= form_tag(products_path, :method => 'get', id: 'search-form') do %>
-            <%= text_field_tag :search, params[:search], placeholder: 'ძიება' %>
+            <%= text_field_tag :search, params[:search], placeholder: t('layouts.search') %>
             <%= submit_tag '', :name => nil %>
         <% end %>
       </div>

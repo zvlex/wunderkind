@@ -4,13 +4,14 @@
     დაადასტურეთ თანხის შემოტანა
   </h2>
     <% show_amount = (@pay_h[:amount].to_i / 100).to_f %>
-  <div class="full-width float-left mt10px fs18px"><div style="padding: 20px;">
-    თქვენ შემოგაქვთ <strong style="color: #cc0000; font-size: 24px;"><%= sprintf('%.2f', show_amount) %> ლარი</strong> თქვენს შიდა ბალანსზე რომელიც შეგიძლიათ შემდეგ გამოიყენოთ <strong>ამავე საიტზე - Wunderkind.ge</strong> პროდუქციის შესაძენად. გთხოვთ დაადასტუროთ ოპერაცია.
+  <div class="full-width float-left mt10px fs18px">
+    <div style="padding: 20px;">
+    თქვენ შემოგაქვთ <strong style="color: #cc0000; font-size: 24px;"><%= sprintf('%.2f', show_amount) %> ლარი</strong> თქვენს შიდა ბალანსზე რომელიც შეგიძლიათ შემდეგ გამოიყენოთ <strong>ამავე საიტზე - Wunderkind.ge</strong> პროდუქციის შესაძენად. გთხოვთ დაადასტუროთ ოპერაცია.</div>
   </div>
 
 
   <%= form_tag 'https://www.pay.ge/pay/', method: :post, id: 'pay_form', class: 'full-width float-left mt10px' do %>
-      <%= hidden_field_tag 'merchant', 'EMALL' %>
+      <%= hidden_field_tag 'merchant', PayConfig::MERCHANT_NAME %>
       <%= hidden_field_tag 'ordercode', @pay_h[:order_hash] %>
       <%= hidden_field_tag 'amount', @pay_h[:amount] %>
       <%= hidden_field_tag 'currency', 'GEL' %>
@@ -25,9 +26,9 @@
       <%= hidden_field_tag 'callbackurl', PayConfig::CALLBACK_URL %>
       <%= hidden_field_tag 'testmode', PayConfig::TEST_MODE_ON %>
       <%= hidden_field_tag 'check', @pay_h[:check_code] %>
-        <div class="formfieldL"></div>
+      <div class="formfieldL"></div>
       <div class="formfieldL">
-      <%= submit_tag 'დასტური', class: 'custom-float-right' %>
+        <%= submit_tag 'დასტური', class: 'custom-float-right' %>
       </div>
   <% end %>
 

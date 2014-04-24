@@ -7,7 +7,7 @@
 
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), class: 'full-width float-left mt10px') do |f| %>
         <div class="formfieldL">
-        <%= f.label 'იმეილი:' %>
+        <%= f.label t('layouts.email') %>
             <%= f.text_field :email, :autofocus => true %>
         </div>
         <div class="formfieldL">

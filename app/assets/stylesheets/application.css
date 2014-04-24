@@ -682,6 +682,7 @@ a {
     padding: 14px 5%;
     width: 90%;
     color: #fff;
+    text-align: center;
     font-size: 17px;
     z-index: 40;
     cursor: pointer;
@@ -689,7 +690,8 @@ a {
 
 .alert-success { background-color: rgba(0, 204, 0, 0.9); }
 /*.alert-notice { background-color: #c09853; }*/
-.alert-notice { background-color: rgba(204, 204, 0, 0.9); }
+/*.alert-notice { background-color: rgba(204, 204, 0, 0.9); }*/
+.alert-notice { background-color: rgba(92, 165, 14, 0.9) }
 .alert-error { background-color: rgba(204, 0, 0, 0.9); }
 
 

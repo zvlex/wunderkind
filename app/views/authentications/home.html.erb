@@ -12,7 +12,7 @@
 
   <section class="full-width float-left mt10px">
     <h2 class="full-width float-left mb10px fs18px fbold">
-      ახალი პროდუქცია
+      <%= t('layouts.new_products') %>
     </h2>
 
     <% @new_products.each do |product| %>
@@ -24,7 +24,7 @@
             <%= image_tag img.product_img(:index) %>
         <% end %>
         <div class="prodshad full-width">
-          <%= link_to image_tag('cart-icon-too.png') + " კალათაში დამათება", product_path(product.id), class: 'add-to-cart' %>
+          <%= link_to image_tag('cart-icon-too.png') + t('products.show.add_to_cart'), product_path(product.id), class: 'add-to-cart' %>
         </div>
       </div>
       <h3 class="fnormal float-left mt6px fs14px color-gray mb6px">

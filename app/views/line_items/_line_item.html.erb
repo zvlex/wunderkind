@@ -14,7 +14,7 @@
         <%= text_field_tag 'quantity', line_item.quantity, size: 1, class: 'quantity' %>
         <%= hidden_field_tag 'c', '1'  %>
       <button class="plus">+</button>
-      <span>რაოდ.</span>
+      <span><%= t('layouts.quantity') %></span>
     </span>
     <% if params[:controller] == 'carts' %>
         <%= submit_tag '', class: 'cartdelred' %>

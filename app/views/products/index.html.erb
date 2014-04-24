@@ -3,80 +3,64 @@
     <h2 class="full-width float-left mb10px fs18px fbold">
       <%= "#{@search}" unless @search.nil? %>
     </h2>
-    <% if @prefixes.nil? || @prefixes.blank? %>
+    <% if !@search %>
         <%# unless @products.nil? %>
-        <% arr = [] %>
-        <% @products.each do |l| %>
-            <% arr << l.prefix_id %>
-        <% end %>
-        <% arr.uniq! %>
 
-
-        <% arr.each do |k| %>
-        <% a = Prefix.find(k) %>
-        <% b = Product.where('prefix_id = ?', k) %>
-        <article class="perprodStyleOut full-width float-left">
-          <% b.first(1).each do |img| %>
-              <% product_image(img.id).each do |pimg|  %>
-                  <figure class="w23per float-left center-text">
-                    <%= image_tag pimg.product_img(:index), style: 'width: 175px'  %>
-                  </figure>
+        <% @prefixes.each do |prefix| %>
+            <article class="perprodStyleOut full-width float-left">
+              <% products = @products.where('prefix_id = ?', prefix.pref_id) %>
+              <% products.first(1).each do |img| %>
+                  <% product_image(img.id).each do |pimg|  %>
+                      <figure class="w23per float-left center-text">
+                        <%= image_tag pimg.product_img(:index), style: 'width: 175px'  %>
+                      </figure>
+                  <% end %>
               <% end %>
-          <% end %>
-
-        <aside class="w76per float-right">
-          <table class="full-width float-left perprodStyle">
-            <tbody class="full-width">
-            <tr class="full-width" style="text-align: left;">
-              <th class="full-width" colspan="4">
-                <%= link_to a["prefix_#{get_loc}"], '#', class: 'all-inherit' %>
-            </th>
-            </tr>
-            <% i = 0 %>
-            <% @products.each do |p|  %>
-                <% if p.prefix_id == k %>
-            <tr class="full-width <%= 'gray-bg' if i == 0 %>">
-              <td style="width: 300px">
-                <%= link_to p.title_ge, product_path(p.id), class: 'all-inherit' %>
-              </td>
-              <td style="width: 100px; text-align: right;">
-                <% if p.discount == 0 %>
-                    <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
-                <% else %>
-                    <%= "#{sprintf('%.2f', p.discount)} #{t('products.show.currency')}" %><br />
+              <aside class="w76per float-right">
+                <table class="full-width float-left perprodStyle">
+                  <tbody class="full-width">
+                  <tr class="full-width" style="text-align: left;">
+                    <th class="full-width" colspan="4">
+                      <%= link_to prefix["prefix_#{get_loc}"], product_path(prefix.pid), class: 'all-inherit' %>
+                    </th>
+                  </tr>
+                  <% products.each do |list| %>
+                      <tr class="full-width">
+                        <td style="width: 300px"><a href="#" class="all-inherit"><%= list["title_#{get_loc}"] %></a></td>
+                        <td style="width: 100px; text-align: right;">
+                          <% if list.discount == 0 %>
+                              <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
+                          <% else %>
+                              <%= "#{sprintf('%.2f', list.discount)} #{t('products.show.currency')}" %><br />
                       <span class="mt14px color-gray fs14px stroke">
-                        <%= "#{sprintf('%.2f', p.price)} #{t('products.show.currency')}" %>
+                        <%= "#{sprintf('%.2f', list.price)} #{t('products.show.currency')}" %>
                       </span>
-                <% end %>
-              </td>
-              <td style="width: 178px; text-align: center;">
-                <%= form_tag line_items_path(product_id: p.id), remote: true do %>
+                          <% end %>
+                        </td>
+                        <td style="width: 178px; text-align: center;">
+                          <%= form_tag line_items_path(product_id: list.id), remote: true do %>
                     <span class="cartAddRem">
                         <button class="minus">-</button>
                       <%= text_field_tag 'quantity', 0, size: 1, class: 'quantity' %>
                       <button class="plus">+</button>
-                        <span>რაოდ.</span>
+                        <span><%= t('layouts.quantity') %></span>
                     </span>
-                    <%= submit_tag '', class: 'buttCartSmall' %>
-                <% end %>
-              </td>
-            </tr>
-                <% end %>
-                <% i += 1 %>
-                <% end %>
-            </tbody>
-            </table>
-          </aside>
-          </article>
+                              <%= submit_tag '', class: 'buttCartSmall' %>
+                          <% end %>
+                          </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </aside>
+            </article>
         <% end %>
-        <%# end %>
+        <%= paginate @prefixes unless @prefixes.nil? %>
 
     <% else %>
-
     <% @prefixes.each do |prefix| %>
     <article class="perprodStyleOut full-width float-left">
         <% products = search_product_list(@search, prefix.pref_id) %>
-        <% products.each do |img| %>
+        <% products.first(1).each do |img| %>
             <% product_image(img.id).each do |pimg|  %>
                 <figure class="w23per float-left center-text">
                   <%= image_tag pimg.product_img(:index), style: 'width: 175px'  %>
@@ -110,7 +94,7 @@
                         <button class="minus">-</button>
                       <%= text_field_tag 'quantity', 0, size: 1, class: 'quantity' %>
                       <button class="plus">+</button>
-                        <span>რაოდ.</span>
+                        <span><%= t('layouts.quantity') %></span>
                     </span>
                   <%= submit_tag '', class: 'buttCartSmall' %>
               <% end %>
@@ -121,12 +105,7 @@
       </aside>
     </article>
     <% end %>
+        <%= paginate @prefixes unless @prefixes.nil? %>
     <% end %>
-
-<% if @products.nil? %>
-    <% flash.now[:notice] = 'Not found' %>
-<% else %>
-<%= paginate @products %>
-<% end %>
   </section>
 </section>

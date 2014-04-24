@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_action :set_i18n_locale_from_params
+  #helper_method :correct_user
   helper_method :menu_items
 
   include CurrentCart
@@ -33,6 +34,8 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) << [:first_name, :last_name, :address, :phone, :zip_code, :payment_zone_id, :pid]
       devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :address, :phone, :zip_code, :payment_zone_id, :pid]
     end
+
+
 
   private
 

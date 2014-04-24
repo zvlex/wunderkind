@@ -30,4 +30,22 @@ module ApplicationHelper
   def meta_info
     StoreInfo.first
   end
+
+  #def correct_user
+  #  if authenticate_customer!
+  #    begin
+  #      @corect_site = current_user.sites.find(current_site)
+  #    rescue ActiveRecord::RecordNotFound
+  #      if current_user.admin?
+  #
+  #      else
+  #        redirect_to root_url
+  #        flash[:error] = "current_user is not fk admin!"
+  #      end
+  #    end
+  #  else
+  #    redirect_to root_url
+  #    flash[:error] = "current_user is not registred!"
+  #  end
+  #end
 end

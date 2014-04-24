@@ -1,7 +1,9 @@
 class AuthenticationsController < ApplicationController
 
   def index
-    @authentications = Authentication.all
+    unless authenticate_customer!
+      redirect_to root_url
+    end
   end
 
   def create

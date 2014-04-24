@@ -1,27 +1,10 @@
 <% payment_zone = PaymentZone.find(@order.payment_zone_id) %>
 <% pay_type = PaymentMethod.find(@order.pay_type_id) %>
 <% gel = t('products.show.currency') %>
-
-<h2 class="full-width float-left mt10px fs18px fbold">
-  კატეგორიის ან ბრენდის სახელი ჰია
-</h2>
-
 <section class="full-width float-left mt10px" id="printable-content">
   <section style="float: left; width: 100%;border: 1px solid #000; margin-top: 24px; margin-bottom: 16px; position: relative; background: #e7e7e7;">
     <h2 style="margin: 0;padding: 10px 2%; font-size: 18px;border: 1px solid #000; background: #e7e7e7; position: absolute; top: -23px; left: 10px; display: block;">
-      მაღაზიის მისამართი
-    </h2>
-    <p style="line-height: 20px; margin-top: 42px; padding: 0 2.5% 20px 2.5%; float: left; width: 95%;">
-      <b><%= t('.store_name') %>: </b><%= meta_info.store_name %><br/>
-      <b><%= t('.store_link') %>: </b>http://<%= request.host %><br/>
-      <b><%= t('.store_phone') %>: </b><%= meta_info.store_email %><br/>
-      <b><%= t('.store_phone') %>: </b><%= meta_info.store_phone %><br/>
-      <b><%= t('.store_address') %>: </b><%= meta_info.store_address %><br/>
-    </p>
-  </section>
-  <section style="float: left; width: 100%;border: 1px solid #000; margin-top: 24px; margin-bottom: 16px; position: relative; background: #e7e7e7;">
-    <h2 style="margin: 0;padding: 10px 2%; font-size: 18px;border: 1px solid #000; background: #e7e7e7; position: absolute; top: -23px; left: 10px; display: block;">
-      მაღაზიის მისამართი
+      შეკვეთების დეტალები
     </h2>
     <p style="line-height: 20px; margin-top: 42px; padding: 0 2.5% 20px 2.5%; float: left; width: 95%;">
       <b><%= t('.payment_method') %>: </b><%= pay_type["method_name_#{get_loc}"] %><br/>

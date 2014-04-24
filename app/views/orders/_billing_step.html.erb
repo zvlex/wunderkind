@@ -1,7 +1,6 @@
-<pre>Billing step</pre>
 <%# current_customer.inspect %>
 <% if @order.pay_type_id == 2 %>
-   <div class="formfieldL"><%= f.label :first_name %><br />
+   <div class="formfieldL"><%= f.label :first_name, 'saxel' %><br />
    <%= f.text_field :first_name, value: current_customer.first_name %></div>
 
    <div class="formfieldL"><%= f.label :last_name %><br />

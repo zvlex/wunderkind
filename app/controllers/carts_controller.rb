@@ -13,17 +13,19 @@ class CartsController < ApplicationController
   end
 
   def show
-    #begin
-      @cart = Cart.find(params[:id])
-    #rescue ActiveRecord::RecordNotFound
-    #  logger.error "Попытка доступа к несуществующей корзине #{params[:id]}"
-    #  redirect_to products_url, notice: 'Несуществующая корзина'
-    #else
-    #  respond_to do |format|
-    #    format.html # show.html.erb
-    #    format.json { render json: @cart }
-    #  end
-    #end
+    begin
+      if :authenticate_customer!
+        @cart = Cart.find(params[:id])
+        if @cart.total_price == 0
+          redirect_to root_url
+          flash[:error] = t('carts.show.cart_empty')
+        end
+      else
+        redirect_to root_url
+      end
+      rescue ActiveRecord::RecordNotFound
+      redirect_to root_url
+    end
   end
 
   def new
