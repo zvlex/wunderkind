@@ -9,7 +9,7 @@ class AuthenticationsController < ApplicationController
   def create
     @authentication = Authentication.new(params[:authentication])
     if @authentication.save
-      redirect_to authentications_url, :notice => "Successfully created authentication."
+      redirect_to authentications_url, :notice => ""
     else
       render :action => 'new'
     end
@@ -18,7 +18,7 @@ class AuthenticationsController < ApplicationController
   def destroy
     @authentication = Authentication.find(params[:id])
     @authentication.destroy
-    redirect_to authentications_url, :notice => "Successfully destroyed authentication."
+    redirect_to authentications_url, :notice => ""
   end
 
   def return_from_pay
@@ -47,7 +47,7 @@ class AuthenticationsController < ApplicationController
     authentication = Authentication.find_by_provider_and_uid(omni['provider'], omni['uid'])
 
     if authentication
-      flash[:notice] = "Logged in Successfully"
+      flash[:notice] = t('authentications.logged_in')
       sign_in_and_redirect Customer.find(authentication.customer_id)
     elsif current_customer
       token = omni['credentials'].token
@@ -65,7 +65,7 @@ class AuthenticationsController < ApplicationController
       customer.apply_omniauth(omni)
 
       if customer.save
-        flash[:notice] = "Logged in."
+        flash[:notice] = t('authentications.logged_in')
         sign_in_and_redirect Customer.find(customer.id)
       else
         session[:omniauth] = omni.except('extra')
@@ -79,7 +79,7 @@ class AuthenticationsController < ApplicationController
     amount = (params[:pay][:amount].to_i * 100).to_s
     order_hash = order_code_hash
     if check_code_hash(amount, order_hash).frozen?
-      check ''
+      check = ''
     else
       check = check_code_hash(amount, order_hash)
     end
@@ -180,7 +180,7 @@ class AuthenticationsController < ApplicationController
   end
 
   def log(description, h_code, transaction_code, g_xml)
-    l = Logs.new(customer_id: current_customer.id, description: description, h_code: h_code, transaction_code: transaction_code, g_xml: g_xml)
+    l = Logs.new(customer_id: @callback[:customdata], description: description, h_code: h_code, transaction_code: transaction_code, g_xml: g_xml)
     if l.save
       true
     else
@@ -189,7 +189,7 @@ class AuthenticationsController < ApplicationController
   end
 
   def check_transaction(transaction_code)
-    transaction = Transaction.where('ucode = ?', transaction_code)
+    transaction = Transaction.where('ux_code = ?', transaction_code)
     if transaction.blank?
       true
     else
@@ -198,8 +198,8 @@ class AuthenticationsController < ApplicationController
   end
 
   def save_order(transaction_code, amount)
-    amount = amount.to_f
-    Transaction.new(customer_id: current_customer.id, status: '', payment_type: 1, payment_method: 0,
-                    ucode: transaction_code, description: 'Pay.ge Online Payment', amount: amount, bonus_xp: '0')
+    amount = (amount.to_f / 100).to_f
+    Transaction.new(customer_id: @callback[:customdata], status: '', payment_type: 1, payment_method: 0,
+                    ux_code: transaction_code, description: 'Pay.ge Online Payment', amount: amount, bonus_xp: '0').save
   end
 end

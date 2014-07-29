@@ -3,8 +3,8 @@
       <h2 class="full-width float-left mb10px fs18px fbold">
         <%= t('orders.index.order_list') %>
       </h2>
-      <% unless @orders.blank? %>
-            <table class="perprodStyle cartStyle" style="width: 100%;" cellspacing="0" cellpadding="0">
+      <% if @orders.blank? %>
+          <table class="perprodStyle cartStyle" style="width: 100%;" cellspacing="0" cellpadding="0">
               <tr>
                 <th><%= t('orders.id') %></th>
                 <th><%= t('orders.order_date') %></th>
@@ -12,12 +12,23 @@
                 <th><%= t('orders.status') %></th>
                 <th><%= t('orders.action') %></th>
               </tr>
+          </table>
+      <% else %>
+            <table class="perprodStyle cartStyle" style="width: 100%;" cellspacing="0" cellpadding="0">
+              <tr>
+                <th><%= t('orders.id') %></th>
+                <th><%= t('orders.order_date') %></th>
+                <th><%= t('orders.total') %></th>
+                <th><%= t('orders.status') %></th>
+                <th></th>
+              </tr>
             <% @orders.each do |order| %>
               <tr>
                 <td>#<%= order.id %></td>
                 <td><%= order.created_at.strftime("%Y/%m/%d %H:%M") %></td>
                 <td><%= sprintf('%.2f', order.total) %> <%= t('products.show.currency') %></td>
-                <td><%= order.status %></td>
+ 
+		            <td><%= Status.find(order.status_id)["status_#{get_loc}"] %></td>
                 <td><%= link_to t('orders.index.invoice'), order_path(order.id), class: 'standardButtonStyle', style: 'float: right; margin: 10px 0' %></td>
               </tr>
             <% end %>

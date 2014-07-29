@@ -10,11 +10,15 @@
 
     <div class="full-width float-left mt14px">
         <% if @order.first_step? %>
-            <%= link_to 'უკან დაბრუნება', @cart, style: 'margin-left: 2.3%', class: 'standardButtonStyle' %>
+            <%= link_to t('carts.show.back'), @cart, style: 'margin-left: 2.3%', class: 'standardButtonStyle' %>
         <% else %>
-            <%= f.submit 'უკან დაბრუნება', name: 'back_button', style: 'margin-left: 2.3%', class: 'standardButtonStyle' unless @order.first_step? %>
+            <%= f.submit t('carts.show.back'), name: 'back_button', style: 'margin-left: 2.3%', class: 'standardButtonStyle' unless @order.first_step? %>
         <% end %>
-      <%= f.submit 'გაგრძელება', style: 'float: right; margin-right: 2.3%', class: 'standardButtonStyle' %>
+        <% if @order.last_step? %>
+        <%= f.submit t('layouts.pay_submit'), style: 'float: right; margin-right: 2.3%', class: 'standardButtonStyle' %>
+        <% else %>
+        <%= f.submit t('layouts.continue'), style: 'float: right; margin-right: 2.3%', class: 'standardButtonStyle' %>
+        <% end %>
     </div>
   <% end %>
     </section>

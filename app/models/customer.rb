@@ -6,10 +6,12 @@ class Customer < ActiveRecord::Base
 
   has_many :authentications
   attr_accessor :current_password
-  validates_presence_of :first_name, :last_name, :pid, :phone, :zip_code, :address
-  validates_format_of :pid, :with => /\A\d{11}$\z/, :on => :create
-  validates_format_of :phone, :with => /\A\d{9}$\z/, :on => :create
-  validates_format_of :zip_code, :with => /\A\d{3,7}$\z/, :on => :create
+ validates_presence_of :first_name, :last_name, :on => :create
+
+ validates_presence_of :first_name, :last_name, :pid, :phone, :address, :on => :update
+ validates_format_of :pid, :with => /\A\d{11}$\z/, :on => :update
+ validates_format_of :phone, :with => /\A\d{9}$\z/, :on => :update
+ # validates_format_of :zip_code, :with => /\A\d{3,7}$\z/, :on => :update
 
   def apply_omniauth(omni)
     authentications.build(:provider => omni['provider'],

@@ -7,6 +7,10 @@ RailsAdmin.config do |config|
       visible false
   end
 
+  config.model Status do
+    visible false
+  end
+
   config.model SubCategory do
     config.label_methods << :title_ge
     label I18n.t('admin.sub_category.menu_name')
@@ -318,19 +322,17 @@ RailsAdmin.config do |config|
   config.model Order do
     label I18n.t('admin.order.menu_name')
     label_plural I18n.t('admin.order.menu_name')
+    config.label_methods << :status_ge
 
     list do
       field :id do
         formatted_value do
           $a = value
-          bindings[:view].link_to(value, "order_product/#{value}?locale=ge") << value
+          bindings[:view].link_to(value, "order_product/?locale=ge&o=#{value}") << value
         end
       end
       field :invoice do
         label I18n.t('admin.order.invoice')
-        formatted_value do
-          bindings[:view].link_to(value, "order_product/#{$a}?locale=ge")
-        end
       end
       field :customer_id, :enum do
         label I18n.t('admin.order.full_name')
@@ -344,7 +346,12 @@ RailsAdmin.config do |config|
           sprintf('%.2f', value)
         end
       end
-      field :status
+      field :status_id, :enum do
+        label I18n.t('admin.order.status')
+        enum do
+          Status.all.map { |c| [ c.status_ge, c.id ] }
+        end
+      end
       field :created_at do
         label I18n.t('admin.order.created_at')
       end
@@ -390,7 +397,12 @@ RailsAdmin.config do |config|
           sprintf('%.2f', value)
         end
       end
-      field :status
+      field :status_id, :enum do
+       label I18n.t('admin.order.status')
+       enum do
+         Status.all.map { |c| [ c.status_ge, c.id ] }
+       end
+      end
     end
 
     edit do
@@ -430,7 +442,12 @@ RailsAdmin.config do |config|
           sprintf('%.2f', value)
         end
       end
-      field :status
+      field :status_id, :enum do
+        label I18n.t('admin.order.status')
+        enum do
+          Status.all.map { |c| [ c.status_ge, c.id ] }
+        end
+      end
     end
   end
 

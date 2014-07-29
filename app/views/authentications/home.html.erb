@@ -34,9 +34,8 @@
             <span class="mt14px color-gray fs14px float-left stroke">
                <%= "#{sprintf('%.2f', product.price)} #{t('products.show.currency')}" if product.discount != 0 %>
             </span>
-        &nbsp;&nbsp;
         <% if product.discount == 0 %>
-            <%= "#{sprintf('%.2f', product.price)} #{t('products.show.currency')}" %>
+            &nbsp;&nbsp;<%= "#{sprintf('%.2f', product.price)} #{t('products.show.currency')}" %>
         <% else %>
             <%= "#{sprintf('%.2f', product.discount)} #{t('products.show.currency')}" %>
         <% end %>

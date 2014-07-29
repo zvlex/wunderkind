@@ -1,44 +1,45 @@
-<%# current_customer.inspect %>
+<h2 class="full-width float-left mb10px fs18px fbold">
+  <%= t('layouts.billing_step_title') %>
+</h2>
+<% span = content_tag(:span, "*", :style => "color:red; float:left;") %>
 <% if @order.pay_type_id == 2 %>
-   <div class="formfieldL"><%= f.label :first_name, 'saxel' %><br />
+   <div class="formfieldL"><%= span %><%= f.label :first_name, t('layouts.first_name') %><br />
    <%= f.text_field :first_name, value: current_customer.first_name %></div>
 
-   <div class="formfieldL"><%= f.label :last_name %><br />
+   <div class="formfieldL"><%= span %><%= f.label t('layouts.last_name') %><br />
       <%= f.text_field :last_name, value: current_customer.last_name %></div>
 
-   <div class="formfieldL"><%= f.label :phone %><br />
+   <div class="formfieldL"><%= span %><%= f.label t('layouts.phone') %><br />
      <%= f.text_field :phone, value: current_customer.phone %></div>
 
-   <div class="formfieldL"><%= f.label :pid %><br />
+   <div class="formfieldL"><%= span %><%= f.label t('layouts.pid') %><br />
      <%= f.text_field :pid, value: current_customer.pid %></div>
 
-    <div class="formfieldL"><%= f.label :payment_zone_id %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.payment_zone')%><br />
       <%= f.select :payment_zone_id, PaymentZone.all.collect { |p| [p["zone_name_#{get_loc}"], p.id] },  selected: current_customer.payment_zone_id %></div>
 
-   <div class="formfieldL"><%= f.label :payment_address %><br />
+   <div class="formfieldL"><%= span %><%= f.label t('layouts.address') %><br />
       <%= f.text_field :payment_address, value: current_customer.address %></div>
 
-    <div class="formfieldL"><%= f.label :zip_code %><br />
-      <%= f.text_field :zip_code, value: current_customer.zip_code %></div>
+    <!-- <div class="formfieldL"><%# f.label :zip_code %><br /><%# f.text_field :zip_code, value: current_customer.zip_code %></div> -->
 <% else %>
-    <div class="formfieldL"><%= f.label :first_name %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.first_name') %><br />
       <%= f.text_field :first_name, value: current_customer.first_name %></div>
 
-    <div class="formfieldL"><%= f.label :last_name %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.last_name') %><br />
       <%= f.text_field :last_name, value: current_customer.last_name %></div>
 
-    <div class="formfieldL"><%= f.label :phone %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.phone') %><br />
       <%= f.text_field :phone, value: current_customer.phone %></div>
 
-    <div class="formfieldL"><%= f.label :pid %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.pid') %><br />
       <%= f.text_field :pid, value: current_customer.pid %></div>
 
-    <div class="formfieldL"><%= f.label :payment_zone_id %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.payment_zone') %><br />
       <%= f.select :payment_zone_id, PaymentZone.all.collect { |p| [p["zone_name_#{get_loc}"], p.id] },  selected: current_customer.payment_zone_id %></div>
 
-    <div class="formfieldL"><%= f.label :payment_address %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.address') %><br />
       <%= f.text_field :payment_address, value: current_customer.address %></div>
 
-    <div class="formfieldL"><%= f.label :zip_code %><br />
-      <%= f.text_field :zip_code, value: current_customer.zip_code %></div>
+    <!-- <div class="formfieldL"><%# f.label :zip_code %><br /><%# f.text_field :zip_code, value: current_customer.zip_code %></div> -->
 <% end %>

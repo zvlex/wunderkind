@@ -144,14 +144,14 @@ ActiveRecord::Schema.define(version: 20140407204813) do
     t.integer  "payment_zone_id"
     t.integer  "pay_type_id"
     t.string   "comment"
-    t.decimal  "total",           precision: 10, scale: 2
+    t.decimal  "total",           precision: 8, scale: 2
     t.string   "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "zip_code"
     t.string   "phone"
     t.string   "pid"
-    t.decimal  "delivery_town",   precision: 10, scale: 0
+    t.decimal  "delivery_town",   precision: 8, scale: 2
     t.string   "status"
   end
 
@@ -264,16 +264,19 @@ ActiveRecord::Schema.define(version: 20140407204813) do
     t.datetime "sub_img_updated_at"
   end
 
+  add_index "sub_categories", ["category_id"], name: "index_sub_categories_on_category_id", using: :btree
+
   create_table "transactions", force: true do |t|
     t.integer  "customer_id"
     t.integer  "order_id"
     t.integer  "status"
     t.integer  "payment_method"
     t.integer  "payment_type"
-    t.string   "ucode"
+    t.string   "ux_code"
     t.string   "description"
     t.decimal  "amount",         precision: 8, scale: 2
-    t.string   "bonus_xp",                               default: "0"
+    t.integer  "bonus_xp",                               default: 0
+    t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

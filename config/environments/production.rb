@@ -1,6 +1,6 @@
 Wunderkind::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.assets.precompile += ['rails_admin/custom/ui.js']
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -77,4 +77,18 @@ Wunderkind::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+
+ config.action_mailer.default_url_options = {:host => 'wunderkind.ge', :protocol => 'http'} #I've also tried it without ":protocol => 'http'"
+ config.action_mailer.raise_delivery_errors = true
+ config.action_mailer.delivery_method = :smtp
+ config.action_mailer.perform_deliveries = true
+ config.action_mailer.smtp_settings = {
+     :address => "smtp.yandex.ru",
+     :port => 587,
+     :authentication => :plain,   # I've also tried :login
+     :enable_starttls_auto => true,  # Also tried tls => true
+     :user_name => 'wunderkindge@yandex.ru',
+     :password => 'locumforme2014'
+   }
 end

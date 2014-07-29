@@ -60,7 +60,7 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       if @cart.update_attributes(params[:cart])
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
+        format.html { redirect_to @cart }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,7 +73,7 @@ class CartsController < ApplicationController
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to products_url, notice: t('carts.destroy.current_empty_cart') }
+      format.html { redirect_to products_url }
       format.js
       format.json { head :no_content }
     end

@@ -4,29 +4,29 @@
 <section class="full-width float-left mt10px" id="printable-content">
   <section style="float: left; width: 100%;border: 1px solid #000; margin-top: 24px; margin-bottom: 16px; position: relative; background: #e7e7e7;">
     <h2 style="margin: 0;padding: 10px 2%; font-size: 18px;border: 1px solid #000; background: #e7e7e7; position: absolute; top: -23px; left: 10px; display: block;">
-      შეკვეთების დეტალები
+      <%= t('layouts.order_details') %>
     </h2>
     <p style="line-height: 20px; margin-top: 42px; padding: 0 2.5% 20px 2.5%; float: left; width: 95%;">
-      <b><%= t('.payment_method') %>: </b><%= pay_type["method_name_#{get_loc}"] %><br/>
+      <b><%= t('layouts.payment_method') %>: </b><%= pay_type["method_name_#{get_loc}"] %><br/>
     </p>
   </section>
   <section style="float: left; width: 100%;border: 1px solid #000; margin-top: 24px; margin-bottom: 16px; position: relative; background: #e7e7e7;">
     <h2 style="margin: 0;padding: 10px 2%; font-size: 18px;border: 1px solid #000; background: #e7e7e7; position: absolute; top: -23px; left: 10px; display: block;">
-      მიმღების მისამართი
+      <%= t('layouts.to_address') %>
     </h2>
     <p style="line-height: 20px; margin-top: 42px; padding: 0 2.5% 20px 2.5%; float: left; width: 95%;">
-      <b><%= t('.first_name') %>: </b><%=h @order.first_name %><br/>
-      <b><%= t('.last_name') %>: </b><%=h @order.last_name %><br />
-      <b><%= t('.phone') %>: </b><%=h @order.phone %><br />
-      <b><%= t('.pid') %>: </b><%=h @order.pid %><br />
-      <b><%= t('.payment_zone') %>: </b><%=h payment_zone["zone_name_#{get_loc}"] %><br />
-      <b><%= t('.payment_address') %>: </b><%=h @order.payment_address %><br />
-      <b><%= t('.zip_code') %>: </b><%=h @order.zip_code %><br />
+      <b><%= t('layouts.first_name') %>: </b><%=h @order.first_name %><br/>
+      <b><%= t('layouts.last_name') %>: </b><%=h @order.last_name %><br />
+      <b><%= t('layouts.phone') %>: </b><%=h @order.phone %><br />
+      <b><%= t('layouts.pid') %>: </b><%=h @order.pid %><br />
+      <b><%= t('layouts.payment_zone') %>: </b><%=h payment_zone["zone_name_#{get_loc}"] %><br />
+      <b><%= t('layouts.address') %>: </b><%=h @order.payment_address %><br />
+      <!-- <b><%# t('.zip_code') %>: </b><%#h @order.zip_code %><br /> -->
     </p>
   </section>
   <section style="float: left; width: 100%;border: 1px solid #000; margin-top: 24px; margin-bottom: 16px; position: relative; background: #e7e7e7;">
     <h2 style="margin: 0;padding: 10px 2%; font-size: 18px;border: 1px solid #000; background: #e7e7e7; position: absolute; top: -23px; left: 10px; display: block;">
-      შენაძენი
+      <%= t('layouts.order_list') %>
     </h2>
     <p style="line-height: 20px; margin-top: 42px; padding: 0 2.5% 20px 2.5%; float: left; width: 95%;">
       <% @cart.line_items.each do |l| %>
@@ -38,9 +38,9 @@
           <%= l.total_price %> <%= gel %>
         </b><br />
         <% end %>
-      <b><%= t('orders.sub_total') %>: </b><%= sprintf('%.2f', @cart.total_price) %> <%= gel %><br />
+      <b><%= t('orders.sub_total') %>: </b><%= sprintf('%.2f', @cart.total_price.to_f) %> <%= gel %><br />
       <b><%=h payment_zone["zone_name_#{get_loc}"] %>: </b><%= sprintf('%.2f', town_delivery = payment_zone.delivery_price) %> <%= gel %><br />
-      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= sprintf('%.2f', total = (@cart.total_price + town_delivery).to_f) %> <%= gel %></span>
+      <b><%= t('orders.total') %>: </b><span style="color: #cc0000;"><%= sprintf('%.2f', total = (@cart.total_price.to_f + town_delivery).to_f) %> <%= gel %></span>
     </p>
   </section>
 </section>
@@ -52,6 +52,6 @@
 <% session[:order_params][:invoice] = invoice %>
 <% session[:order_params][:ip] = request.env['REMOTE_ADDR'] %>
 <% session[:order_params][:customer_id] = current_customer.id %>
-<% session[:order_params][:status] = '0' %>
+<% session[:order_params][:status_id] = '1' %>
 <% session[:order_params][:store_name] = meta_info.store_name %>
 <% session[:order_params][:store_url] = "http://#{request.host}" %>

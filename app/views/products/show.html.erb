@@ -52,7 +52,7 @@
 
       <div class="w95per float-left mt14px pad2and5h">
         <h3 class="full-width float-left fs16px fbold" style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
-          აღწერა
+          <%= t('layouts.desc') %>
         </h3>
 
         <p class="full-width float-left fs14px mt10px" style="line-height: 18px; letter-spacing: 1px;">
@@ -62,7 +62,7 @@
 
       <div class="w95per float-left mt14px pad2and5h">
         <h3 class="full-width float-left fs16px fbold mb10px" style="border-bottom: 1px solid #ccc; padding-bottom: 10px; border-top: 1px solid #ccc; padding-top: 10px;">
-          related products
+          <%= t('layouts.related_products') %>
         </h3>
 
         <% related_product_prefix_list(@product.sub_category_id).each do |relp| %>
@@ -82,9 +82,9 @@
             <span class="mt14px color-gray fs14px float-left stroke">
                <%= "#{sprintf('%.2f', relp.price)} #{t('products.show.currency')}" if relp.discount != 0 %>
             </span>
-            &nbsp;&nbsp;
+            
             <% if relp.discount == 0 %>
-                <%= "#{sprintf('%.2f', relp.price)} #{t('products.show.currency')}" %>
+              &nbsp;&nbsp;<%= "#{sprintf('%.2f', relp.price)} #{t('products.show.currency')}" %>
             <% else %>
                 <%= "#{sprintf('%.2f', relp.discount)} #{t('products.show.currency')}" %>
             <% end %>

@@ -22,17 +22,19 @@
 ge:
   views:
     pagination:
-      first: '<span>First</span>'
-      previous: '<span>Previous</span>'
-      next: '<span>Next</span>'
-      last: '<span>Last</span>'
+      first: '<span>პირველი</span>'
+      previous: '<span>წინა</span>'
+      next: '<span>შემდეგი</span>'
+      last: '<span>ბოლო</span>'
   layouts:
     not_found: 'არაფერი არ არის ნაპოვნი'
     balance: 'ბალანსი'
     sign_in: 'შესვლა'
     sign_up: 'რეგისტრაცია'
-    email: "ელ fოსტა"
-    edit_profile: 'ჩემი მონაცამები'
+    email: "ელ-ფოსტა"
+    password: 'პაროლი:'
+    password_conf: 'გაიმეორეთ პაროლი'
+    edit_profile: 'ჩემი მონაცემები'
     my_orders: 'ჩემი შენაძენები'
     my_balance: 'ჩემი ბალანსი'
     logout: 'გასვლა'
@@ -42,15 +44,108 @@ ge:
     search: 'ძიება'
     quantity: 'რაოდ.'
     new_products: 'ახალი პროდუქცია'
+    registration: 'რეგისტრაცია'
+    zip_code: 'საფოსტო ინდექსი'
+    last_name: 'გვარი'
+    first_name: 'სახელი'
+    phone: 'ტელეფონი'
+    pid: 'პირადი ნომერი'
+    address: 'მისამართი'
+    payment_zone: 'რეგიონი'
+    submit: 'დასტური'
+    shipping_step_title: "აირჩიეთ გადახდის მეთოდი"
+    billing_step_title: "შეიყვანეთ მიმღების ინფორმაცია"
+    continue: "გაგრძელება"
+    current_password: 'შეიყვანეთ მიმდინარე პაროლი რომ დაადასტუროთ ცვლილება'
+    password_button: 'პაროლის შეცვლა'
+    leave_blank: 'გამოტოვეთ თუ არ გსურთ ცვლილება'
+    current_password2: 'მიმდინარე პაროლი'
+    auth: 'ავტორიზაცია'
+    remember_me: 'დამიმახსოვრე როგორც შემოსული'
+    order_details: 'შეკვეთების დეტალები'
+    to_address: 'მიმღების მისამართი'
+    order_list: 'შენაძენი'
+    payment_method: 'გადახდის მეთოდი'
+    pay_submit: 'გადახდა'
+    print: 'ამობეჭდვა'
+    store_address: 'მაღაზიის მისამართი'
+    store_name: 'მაღაზიის სახელი'
+    store_link: 'მაღაზიის ლინკი'
+    store_phone: 'მაღაზიის ნომერი'
+    store_email: 'მაღაზიის ელ-ფოსტა'
+    store_info: 'მაღაზიის ინფორმაცია'
+    invoice: 'ინვოისი'
+    related_products: 'მსგავსი პროდუქტები'
+    desc: 'აღწერა'
+    add_to_cart: 'კალათაში დამატება'
+    change_password: 'პაროლის შეცვლა'
+    new_password: 'ახალი პაროლი'
+    category_list: 'კატეგორიები'
+    brand_list: 'ბრენდი'
+    sex_list: 'სქესი'
+    age_list: 'ასაკი'
+    price_list: 'ფასი'
 
+
+
+  errors:
+    format: "%{message}"
 
   activerecord:
     errors:
+      format: "%{message}"
       models:
         order:
           attributes:
+            pay_type_id:
+              blank: "აირჩიეთ გადახდის მეთოდი"
             first_name:
-              blank: 'black'
+              blank: 'სახელის - ველი არ არის შევსებული'
+            last_name:
+              blank: 'გვარის - ველი არ არის შევსებული'
+            phone:  
+              blank: 'ტელეფონის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ ტელეფონი'
+            pid:  
+              blank: 'პირადი ნომერის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ პირადი ნომერი'
+            payment_address:
+              blank: 'მისამართის - ველი არ არის შევსებული'
+            payment_zone_id:
+              blank: 'რეგიონის - ველი არ არის შევსებული'
+        customer:
+          attributes:
+            pay_type_id:
+              blank: "აირჩიეთ გადახდის მეთოდი"
+            first_name:
+              blank: 'სახელის - ველი არ არის შევსებული'
+            last_name:
+              blank: 'გვარის - ველი არ არის შევსებული'
+            phone:  
+              blank: 'ტელეფონის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ ტელეფონი'
+            pid:  
+              blank: 'პირადი ნომერის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ პირადი ნომერი'
+            payment_address:
+              blank: 'მისამართის - ველი არ არის შევსებული'
+            payment_zone_id:
+              blank: 'რეგიონის - ველი არ არის შევსებული'
+            email:
+              blank: 'ელ-ფოსტის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ ელ-ფოსტა'
+              taken: 'ელ-ფოსტა უკვე დაკავებულია'
+            address:
+              blank: 'მისამართის - ველი არ არის შევსებული'
+            current_password:
+              blank: 'პაროლის - ველი არ არის შევსებული'
+              invalid: 'თქვენ არასწორად მიუთითეთ პაროლი'
+            password:
+              blank: 'პაროლის - ველი არ არის შევსებული'
+            password_confirmation:
+              confirmation: 'თქვენ არასწორად მიუთითეთ პაროლი'
+
+
   datetime:
       distance_in_words:
         less_than_x_minutes:
@@ -69,12 +164,18 @@ ge:
       balance: "ლარი"
       items: "პროდ."
       symbol: " | "
-      your_cart: "თქვენი კალათა"
+      your_cart: "ჩემი კალათა"
       add_to_cart: 'კალათაში დამატება'
+
+  authentications:
+    logged_in: 'თქვენ შეხვედით სისტემაში'
+    logged_out: ''
+
+
 
   line_items:
     create:
-      line_item_created: 'Line Item was successfully created'
+      line_item_created: 'პროდუქტი დაემატა კალათაში'
 
   carts:
     show:
@@ -96,6 +197,9 @@ ge:
       current_empty_cart: "Your cart is currently empty"
 
   orders:
+    add: 'შეკვეთა მიღებულია'
+    remove: 'შეკვეთა გაუქმებულია'
+    no_money: 'თქვენ საკმარისი თანხა არ გაქვთ'
     index:
       order_list: 'შენაძენების სია'
       invoice: 'ინვოისი'

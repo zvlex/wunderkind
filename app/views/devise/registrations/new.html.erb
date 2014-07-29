@@ -1,47 +1,46 @@
 <section class="mt10px w76per float-right" id="main-section">
   <section class="full-width float-left mt10px">
     <h2 class="full-width float-left mb10px fs18px fbold">
-      რეგისტრაცია
+      <%= t('layouts.registration') %>
     </h2>
-
+<% span = content_tag(:span, "*", :style => "color:red; float:left;") %>
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), class: 'full-width float-left mt10px') do |f| %>
   <%= devise_error_messages! %>
 
-    <div class="formfieldL"><%= f.label :first_name %><br />
+    <div class="formfieldL"><%= span %><%= f.label t('layouts.first_name') %><br />
     <%= f.text_field :first_name %></div>
 
-  <div class="formfieldL"><%= f.label :last_name %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.last_name') %><br />
   <%= f.text_field :last_name %></div>
 
-  <div class="formfieldL"><%= f.label :email %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.email') %><br />
   <%= f.email_field :email, :autofocus => true %></div>
 
-  <div class="formfieldL"><%= f.label :pid %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.pid') %><br />
     <%= f.text_field :pid %></div>
 
-  <div class="formfieldL"><%= f.label :phone %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.phone') %><br />
     <%= f.text_field :phone, placeholder: '555000000' %></div>
 
-  <div class="formfieldL"><%= f.label :payment_zone_id %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.payment_zone') %><br />
     <%= f.select :payment_zone_id, PaymentZone.all.collect { |p| [p["zone_name_#{get_loc}"], p.id] } %></div>
         <div style="clear: both; width: 100%;"></div>
-  <div class="formfieldL"><%= f.label :address %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.address') %><br />
     <%= f.text_field :address %></div>
 
-  <div class="formfieldL"><%= f.label :zip_code %><br />
-    <%= f.text_field :zip_code %></div>
+  <!-- <div class="formfieldL"><%# f.label t('layouts.zip_code') %><br /><%# f.text_field :zip_code %></div> -->
 
-  <div class="formfieldL"><%= f.label :password %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.password') %><br />
   <%= f.password_field :password %></div>
 
-  <div class="formfieldL"><%= f.label :password_confirmation %><br />
+  <div class="formfieldL"><%= span %><%= f.label t('layouts.password_conf') %><br />
   <%= f.password_field :password_confirmation %></div>
-
+<div style="clear: both; width: 100%;"></div>
   <div class="formfieldL">
     <%= link_to image_tag('fblogin-big.png', class: 'float-left'), customer_omniauth_authorize_path(:facebook) %>
   </div>
 
-  <div class="formfieldL"><%= f.submit 'დასტური' %></div>
+  <div class="formfieldL"><%= f.submit t('layouts.submit'), style: 'float: right' %></div>
 <% end %>
 
   </section>

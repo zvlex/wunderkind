@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  before_filter :if => Proc.new{ |c| c.request.path =~ /admin/ } do 
+  @head_javascript_paths = ['/rails/admin/custom/custom.js'] 
+  end
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception

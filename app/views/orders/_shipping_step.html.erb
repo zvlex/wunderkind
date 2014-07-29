@@ -1,5 +1,5 @@
 <h2 class="full-width float-left mb10px fs18px fbold">
-  კატეგორიის ან ბრენდის სახელი ჰია
+  <%= t('layouts.shipping_step_title') %>
 </h2>
 <%= f.collection_radio_buttons(:pay_type_id, PaymentMethod.all, :id, "method_name_#{get_loc}") do |b| %>
     <% payment_method = PaymentMethod.find(b.value) %>
@@ -8,8 +8,9 @@
       <div class="full-width float-left fs15px color-gray mt6px">
         <%=raw payment_method["description_#{get_loc}"] %>
       </div>
-      <figure class="full-width float-left mt14px center-text">
-        <%= image_tag payment_method['img_link'] %>
+      <% padding = "padding-top: 50px" if payment_method.id == PaymentMethod.all.last.id %>
+      <figure class="full-width float-left mt14px center-text" style="<%= padding %>">
+        <img src="<%= payment_method['img_link'] %>" />
       </figure>
     </div>
 <% end %>

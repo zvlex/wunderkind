@@ -12,10 +12,9 @@ module PayConfig
   ISPREAUTH_NO = 0
   TRANSACTION_STATUS_COMPLETED = 'COMPLETED'
   TRANSACTION_STATUS_CANCELED = 'CANCELED'
-  TRANSACTION_STATUS_CANCELED = 'CANCELED'
   TRANSACTION_STATUS_ERROR = 'ERROR'
-  SUCCESS_URL = 'http://localhost:3000/ge/authentications/return_from_pay?'
-  ERROR_URL = 'http://localhost:3000/ge/authentications/return_from_pay?'
-  CANCEL_URL = 'http://localhost:3000/ge/authentications/return_from_pay?'
-  CALLBACK_URL = 'http://localhost:3000/ge/authentications/callback?'
+  SUCCESS_URL = 'http://wunderkind.ge/ge/authentications/return_from_pay?'
+  ERROR_URL = 'http://wunderkind.ge/ge/authentications/return_from_pay?'
+  CANCEL_URL = 'http://wunderkind.ge/ge/authentications/return_from_pay?'
+  CALLBACK_URL = 'http://wunderkind.ge/ge/authentications/callback?'
 end

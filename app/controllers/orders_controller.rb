@@ -4,13 +4,13 @@ class OrdersController < ApplicationController
   #before_action :set_order, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @orders = Order.all.where('customer_id = ?', current_customer.id).order('created_at DESC').page(params[:page]).per(2)
+    @orders = Order.all.where('customer_id = ?', current_customer.id).order('created_at DESC').page(params[:page]).per(10)
   end
 
 
   def new
     if @cart.line_items.empty?
-      redirect_to products_url, notice: 'Your cart is empty'
+      redirect_to products_url
       return
     end
 
@@ -65,9 +65,9 @@ class OrdersController < ApplicationController
                             per_price: per_price)
       product.quantity -= li.quantity if op.save
       if product.save
-        flash[:success] = 'Order added'
+        flash[:success] = t('orders.add')
       else
-        flash[:error] = 'Order canceled'
+        flash[:error] = t('orders.remove')
       end
     end
   end
@@ -87,24 +87,24 @@ class OrdersController < ApplicationController
         if @order.pay_type_id == 2
           # Amount check
           if @amount.to_f == 0
-            flash[:notice] = 'No money'
+            flash[:error] = t('orders.no_money')
             redirect_to @cart
             return
           elsif @amount.to_f >= session[:order_params][:total].to_f
-            minus_amount = (-1 * session[:order_params][:total].to_i).to_f
+            minus_amount = (-1 * session[:order_params][:total].to_f)
             Transaction
               .create(customer_id: current_customer.id, order_id: @order.id, amount: minus_amount, status: 0,
-                      payment_type: 0, payment_method: @order.pay_type_id, ucode: '',
+                      payment_type: 0, payment_method: @order.pay_type_id, ux_code: '',
                       description: "Order ID: ##{@order.id}", bonus_xp: 0) if @order.save
             add_order_products
             clear_cart
           else
-            flash[:notice] = 'You have not enough money'
+            flash[:error] = t('orders.no_money')
             redirect_to @cart
             return
           end
         else
-          flash[:notice] = 'Order saved'
+          flash[:notice] = t('orders.add')
           @order.save
           add_order_products
         end

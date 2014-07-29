@@ -1,37 +1,37 @@
 <%= form_tag(products_path, :method => 'get', id: 'sidebar', class: 'mt10px gray-bg w23per blue-border border-8-radius float-left') do %>
-<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">Subs</h2>
+<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue"><%= t('layouts.category_list') %></h2>
 <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
   <%= collection_radio_buttons(:sub_category, :id, SubCategory.all, :id, :title_ge) do |b| %>
       <% unless params[:sub_category].nil?  %>
       <% c = 'checked' if (params[:sub_category][:id].to_i == b.value)  %>
       <% end %>
-        <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.radio_button(checked: c) + "\t#{b.text}" } %>
+        <%= b.label(:'data-value' => b.value, class: 'fs13px full-width float-left mb10px') { b.radio_button(checked: c) + "\t#{b.text}" } %>
   <% end %>
 </div>
 
-<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">ბრენდი</h2>
+<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue"><%= t('layouts.brand_list') %></h2>
 <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
     <%= collection_check_boxes(:brand, :id, Brand.all, :id, :title_ge) do |b| %>
-        <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <%= b.label(:'data-value' => b.value, class: 'fs13px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
     <% end %>
 </div>
 
-<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">სქესი</h2>
+<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue"><%= t('layouts.sex_list') %></h2>
 <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
     <%= collection_check_boxes(:sex, :id, Sex.all, :id, :sex_ge) do |b| %>
-        <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <%= b.label(:'data-value' => b.value, class: 'fs13px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
     <% end %>
 </div>
 
-<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue">ასაკი</h2>
+<h2 class="mt10px ml5per mb10px w90per float-left fs16px color-blue"><%= t('layouts.age_list') %></h2>
 <div class="w90per float-left mr1perc color-gray borderbGray ml5per">
     <%= collection_check_boxes(:age, :id, Age.all, :id, :age_ge) do |b| %>
-        <%= b.label(:'data-value' => b.value, class: 'fs15px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
+        <%= b.label(:'data-value' => b.value, class: 'fs13px full-width float-left mb10px') { b.check_box + "\t#{b.text}" } %><br />
     <% end %>
 </div>
 
 <div class="w90per float-left mr1perc color-gray borderbGray ml5per" style="padding-bottom: 20px">
-    <h2 class="mt10px mb10px full-width float-left fs16px color-blue">Price</h2>
+    <h2 class="mt10px mb10px full-width float-left fs16px color-blue"><%= t('layouts.price_list') %></h2>
     <div data-min="<%= Product.minimum('price') %>" data-max="<%= Product.maximum('price') %>" class="green-range-bar float-left w90per mw5per mt10px mb10px">
         <span class="from"></span>
         <span class="to"></span>
